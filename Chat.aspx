@@ -636,14 +636,14 @@ function IsImageFile(fileF) {
                         <!-- /.box-body -->
                         <div class="box-footer">
 
-                            <textarea id="txtMessage" style="float:left;width:85%";></textarea>
+                            <textarea id="txtMessage"></textarea>
 
-                            <div class="input-group" style="float: right;width:15%;">
+                            <div class="input-group" style="float: right;">
                                 <input class="form-control" style="visibility: hidden;" />
-                                <div class="input-group-btn"">
-             
+                                <span class="input-group-btn">
                                     <input type="button" class="btn btn-primary btn-flat" id="btnSendMsg" value="send" />
-                                </div>
+
+                                </span>
                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
 
                                     <%-- <Triggers>
