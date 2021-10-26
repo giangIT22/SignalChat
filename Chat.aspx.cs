@@ -20,6 +20,7 @@ namespace SignalRChat
         public string UserImage = "/images/DP/dummy.png";
         protected string UploadFolderPath = "~/Uploads/";
         ConnClass ConnC = new ConnClass();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserName"] != null)
@@ -50,8 +51,6 @@ namespace SignalRChat
                 if (ImageName != "")
                     UserImage = "images/DP/" + ImageName;
             }
-
-
         }
 
         protected void btnChangePicModel_Click(object sender, EventArgs e)
