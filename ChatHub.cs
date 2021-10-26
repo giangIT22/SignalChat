@@ -19,18 +19,21 @@ namespace SignalRChat
         {
             var id = Context.ConnectionId;
 
-
+            CurrentMessage.Clear();
+            ConnectedUsers.Clear();
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 string UserImg = this.GetUserImage(userName);
                 string logintime = DateTime.Now.ToString();
 
+                //show list messages
+                this.showListMessagse();
                 ConnectedUsers.Add(new Users { ConnectionId = id, UserName = userName, UserImage = UserImg, LoginTime = logintime });
                 // send to caller
                 Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
                 // send to all except caller client
-                Clients.AllExcept(id).onNewUserConnected(id, userName, UserImg, logintime);
+                //Clients.AllExcept(id).onNewUserConnected(id, userName, UserImg, logintime);
             }
         }
 
@@ -54,26 +57,42 @@ namespace SignalRChat
         public void SendMessageToAll(string userName, string message, string time)
         {
             string UserImg = this.GetUserImage(userName);
+            string query = "EXECUTE dbo.addMessage @userName , @content , @userImage , @time";
             // store last 100 messages in cache
-            AddMessageinCache(userName, message, time, UserImg);
-
+            //AddMessageinCache(userName, message, time, UserImg);
+            ConnC.ExecuteNonQuery(query, new object[] { userName, message, UserImg, time });
             // Broad cast message
             Clients.All.messageReceived(userName, message, time, UserImg);
 
         }
 
-        private void AddMessageinCache(string userName, string message, string time, string UserImg)
+        //private void AddMessageinCache(string userName, string message, string time, string UserImg)
+        //{
+        //    CurrentMessage.Add(new Messages { UserName = userName, Message = message, Time = time, UserImage = UserImg });
+
+        //    if (CurrentMessage.Count > 100)
+        //        CurrentMessage.RemoveAt(0);
+
+        //}
+
+        public void showListMessagse()
         {
-            CurrentMessage.Add(new Messages { UserName = userName, Message = message, Time = time, UserImage = UserImg });
-
-            if (CurrentMessage.Count > 100)
-                CurrentMessage.RemoveAt(0);
-
+            DataTable tb = ConnC.ExecuteQuery("select * from message");
+            for (int i = 0; i < tb.Rows.Count; i++)
+            {
+                Messages messages = new Messages();
+                messages.UserName = tb.Rows[i]["userName"].ToString();
+                messages.UserImage = tb.Rows[i]["userImage"].ToString();
+                messages.Message = tb.Rows[i]["content"].ToString();
+                messages.Time = tb.Rows[i]["created_at"].ToString();
+                CurrentMessage.Add(messages);
+            }
         }
 
         // Clear Chat History
         public void clearTimeout()
         {
+            ConnC.ExecuteNonQuery("Delete from message");
             CurrentMessage.Clear();
         }
 

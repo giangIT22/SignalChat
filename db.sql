@@ -1,115 +1,18 @@
-USE [master]
+CREATE DATABASE AppChat
 GO
-/****** Object:  Database [AppChat]    Script Date: 10/19/2021 00:07:24 ******/
-CREATE DATABASE [AppChat]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'AppChat', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\AppChat.mdf' , SIZE = 3264KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'AppChat_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\AppChat_log.ldf' , SIZE = 816KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+USE AppChat
 GO
-ALTER DATABASE [AppChat] SET COMPATIBILITY_LEVEL = 120
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [AppChat].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [AppChat] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [AppChat] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [AppChat] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [AppChat] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [AppChat] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [AppChat] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [AppChat] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [AppChat] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [AppChat] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [AppChat] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [AppChat] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [AppChat] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [AppChat] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [AppChat] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [AppChat] SET  ENABLE_BROKER 
-GO
-ALTER DATABASE [AppChat] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [AppChat] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [AppChat] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [AppChat] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [AppChat] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [AppChat] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [AppChat] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [AppChat] SET RECOVERY FULL 
-GO
-ALTER DATABASE [AppChat] SET  MULTI_USER 
-GO
-ALTER DATABASE [AppChat] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [AppChat] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [AppChat] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [AppChat] SET TARGET_RECOVERY_TIME = 0 SECONDS 
-GO
-ALTER DATABASE [AppChat] SET DELAYED_DURABILITY = DISABLED 
-GO
-EXEC sys.sp_db_vardecimal_storage_format N'AppChat', N'ON'
-GO
-USE [AppChat]
-GO
-/****** Object:  Table [dbo].[users]    Script Date: 10/19/2021 00:07:24 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[users](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[userName] [nvarchar](50) NULL,
-	[password] [varchar](50) NULL,
-	[photo] [varchar](50) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+ CREATE TABLE users
+ (
+	id INT PRIMARY KEY IDENTITY(1,1),
+	userName NVARCHAR(50),	
+	password NCHAR(50)
+ )
 
-GO
-SET ANSI_PADDING OFF
-GO
-SET IDENTITY_INSERT [dbo].[users] ON 
+ DROP TABLE dbo.users
+ go
 
-INSERT [dbo].[users] ([id], [userName], [password], [photo]) VALUES (1, N'giang22', N'123', NULL)
-INSERT [dbo].[users] ([id], [userName], [password], [photo]) VALUES (14, N'giang222', N'827CCB0EEA8A706C4C34A16891F84E7B                  ', NULL)
-INSERT [dbo].[users] ([id], [userName], [password], [photo]) VALUES (15, N'giang2222', N'827CCB0EEA8A706C4C34A16891F84E7B                  ', NULL)
-SET IDENTITY_INSERT [dbo].[users] OFF
-/****** Object:  StoredProcedure [dbo].[insertUser]    Script Date: 10/19/2021 00:07:24 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE PROC [dbo].[insertUser](@name NVARCHAR(50), @password NCHAR(50))
+CREATE PROC insertUser(@name NVARCHAR(50), @password NCHAR(50))
 AS
 BEGIN
 	INSERT INTO dbo.users
@@ -119,7 +22,32 @@ BEGIN
 			)
 END
 GO
-USE [master]
+EXEC dbo.insertUser @name = N'', -- nvarchar(50)
+    @password = N'' -- nchar(50)
+
+ 
+
+
+CREATE TABLE message
+(
+	id INT PRIMARY KEY IDENTITY(1,1),
+	content NTEXT,
+	userName NVARCHAR(50),
+	userImage VARCHAR(200),
+	created_at VARCHAR(200)
+)
+
 GO
-ALTER DATABASE [AppChat] SET  READ_WRITE 
-GO
+ALTER PROC addMessage (@userName NVARCHAR(50), @content NTEXT, @userImage VARCHAR(200) , @time VARCHAR(200))
+AS
+BEGIN
+	INSERT INTO dbo.message
+	VALUES  ( 
+	          @content , -- content - nvarchar(200)
+	          @userName, -- userName - nvarchar(50)
+	          @userImage , -- userImage - varchar(200)
+	          @time  -- created_at - datetime
+	        )
+END
+
+GO;
