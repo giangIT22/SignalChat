@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using SignalRChat.Models.Data;
 
 namespace SignalRChat
 {
@@ -17,13 +18,11 @@ namespace SignalRChat
         }
         protected void btnRegister_ServerClick(object sender, EventArgs e)
         {
-            string name = Request.Form["username"].ToString();
-            string password = FormsAuthentication.HashPasswordForStoringInConfigFile(Request.Form["password"].ToString(), "MD5");
+            string username = Request.Form["username"].ToString();
+            string password = Request.Form["password"].ToString();
 
-            string query = " EXEC dbo.insertUser @name , @password";
-            string exist = "select * from users where userName = " + "'" + name + "'";
 
-            if (name == "")
+            if (username == "")
             {
                 errorMessage.InnerText = "Vui lòng nhập tên người dùng";
                 return;
@@ -39,16 +38,21 @@ namespace SignalRChat
                 return;
             }
 
-            if (cnn.ExecuteQuery(exist).Rows.Count <= 0)
+
+            
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+            bool isSuccess = false;
+            string msg = "";
+            (isSuccess,msg) = UserFunc.DangKy(username, hashedPassword);
+
+            if (isSuccess)
             {
-                if (cnn.ExecuteNonQuery(query, new object[] { name, password }) > 0)
-                {
-                    Response.Redirect("Login.aspx");
-                }
+               Response.Redirect("Login.aspx");
             }
             else
             {
-                errorMessage.InnerText = "Tài khoản này đã tồn tại";
+                errorMessage.InnerText = msg;
             }
         } 
     }

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using SD = System.Drawing;
 using System.Web.UI.HtmlControls;
 using System.Data;
+using SignalRChat.Models.Data;
 
 namespace SignalRChat
 {
@@ -23,9 +24,10 @@ namespace SignalRChat
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserName"] != null)
+            User user = (User)Session[AppConst.SessionCurrentUserKey];
+            if (user != null)
             {
-                UserName = Session["UserName"].ToString();
+                UserName = user.Username;
                 this.GetUserImage(UserName);
             }
             else

@@ -34,6 +34,7 @@
             // Declare a proxy to reference the hub.
 
             var chatHub = $.connection.chatHub;
+
             registerClientMethods(chatHub);
             
             // Start Hub
@@ -44,6 +45,7 @@
             });            
 
             function registerClientMethods(chatHub)
+
             {
                 // Calls when user successfully logged in
                 chatHub.client.onConnected = function (id, userName, allUsers, messages, times) {
@@ -214,7 +216,6 @@
             });
 
 
-
             // Stop Title Alert
             window.onfocus = function (event) {
                 if (event.explicitOriginalTarget === window) {
@@ -223,7 +224,6 @@
                     document.title = 'SignalR Chat App';
                 }
             }
-
 
         });
 

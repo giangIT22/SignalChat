@@ -5,7 +5,8 @@ using System.Web;
 
 namespace SignalRChat
 {
-    public class Users
+    public class Users2
+
     {
         public string ConnectionId { get; set; }
         public string UserName { get; set; }

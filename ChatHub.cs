@@ -11,8 +11,8 @@ namespace SignalRChat
 {
     public class ChatHub : Hub
     {
-        static List<Users> ConnectedUsers = new List<Users>();
-        static List<Messages> CurrentMessage = new List<Messages>();
+        static List<Users2> ConnectedUsers = new List<Users2>();
+        static List<Messages2> CurrentMessage = new List<Messages2>();
         ConnClass ConnC = new ConnClass();
 
         public void Connect(string userName)
@@ -28,7 +28,7 @@ namespace SignalRChat
 
                 //show list messages
                 this.showListMessagse();
-                ConnectedUsers.Add(new Users { ConnectionId = id, UserName = userName, UserImage = UserImg, LoginTime = logintime });
+                //ConnectedUsers.Add(new Users { ConnectionId = id, UserName = userName, UserImage = UserImg, LoginTime = logintime });
                 // send to caller
                 Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
@@ -77,16 +77,16 @@ namespace SignalRChat
 
         public void showListMessagse()
         {
-            DataTable tb = ConnC.ExecuteQuery("select * from message");
-            for (int i = 0; i < tb.Rows.Count; i++)
-            {
-                Messages messages = new Messages();
-                messages.UserName = tb.Rows[i]["userName"].ToString();
-                messages.UserImage = tb.Rows[i]["userImage"].ToString();
-                messages.Message = tb.Rows[i]["content"].ToString();
-                messages.Time = tb.Rows[i]["created_at"].ToString();
-                CurrentMessage.Add(messages);
-            }
+            //DataTable tb = ConnC.ExecuteQuery("select * from message");
+            //for (int i = 0; i < tb.Rows.Count; i++)
+            //{
+            //    Messages2 messages = new Messages();
+            //    messages.UserName = tb.Rows[i]["userName"].ToString();
+            //    messages.UserImage = tb.Rows[i]["userImage"].ToString();
+            //    messages.Message = tb.Rows[i]["content"].ToString();
+            //    messages.Time = tb.Rows[i]["created_at"].ToString();
+            //    CurrentMessage.Add(messages);
+            //}
         }
 
         // Clear Chat History
