@@ -697,6 +697,7 @@
 
                         <div class="box-footer box-comments" id="divgroup">
                             <button id="btnGroup">Group1</button>
+                            <button class="btnEdit">...</button>
                         </div>
 
                     </div>
@@ -873,10 +874,9 @@
 
     <div class="modal-edit">
         <div class="modal-edit-container">
-
         <div class="modal-edit__nav">
             <div class="modal-info__nav-title">Tên nhóm</div>
-            <button class=" btnClose">Close</button>          
+            <button class=" btnclose">Close</button>          
         </div>
         <div class="box" style="width: 100%; height: 10px ; background-color: rgba(184, 188, 192, 0.623);"></div>
         <div class="modal-edit__info">
@@ -895,7 +895,9 @@
   </div>
   
     <script>
-        
+
+
+        //modal create
         $('#btnCreateGroup').click(function (e) {
             e.preventDefault();
             $('.modal-create').css("display","flex");
@@ -911,6 +913,21 @@
             $('.modal-create').css("display", "none");
         });
 
+
+        // modal edit
+        $('.btnEdit').click(function (e) {
+            e.preventDefault();
+            $('.modal-edit').css("display", "flex");
+        })
+        $('.btnclose').click(function (e) {
+            e.preventDefault();
+            $('.modal-edit').css("display", "none");
+        });
+
+        $('.modal-edit').click(function (e) {
+            e.preventDefault();
+            $('.modal-eidt').css("display", "none");
+        });
 
         //$('.modal-create-container').click(function (e) {
         //    e.stopPropagation();
