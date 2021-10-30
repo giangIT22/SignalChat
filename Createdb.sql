@@ -1,0 +1,1 @@
+delete from tblMessage where Id >0

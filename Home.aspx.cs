@@ -1,4 +1,5 @@
-﻿using SignalRChat.Models.Data;
+﻿using Microsoft.AspNet.SignalR;
+using SignalRChat.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,32 +13,24 @@ namespace SignalRChat
     public partial class Home : System.Web.UI.Page
     {
 
-        public string Username = "shjety";
-        public List<string> friends = new List<string> { "hai", "jang", "toan" };
-        public List<string> messages = new List<string> { "alo", "shjet", "pussy" };
+        public string Username = "";
         protected void Page_Load(object sender, EventArgs e)
         {
 
             var user = (User)Session[AppConst.SessionCurrentUserKey];
+            if(user == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             this.Username = user.Username;
 
             var test = IsPostBack;
-            rpListFriend.DataSource = friends;
-            rpListFriend.DataBind();
-
-
-            
-            rpChatBox.DataSource = messages;
-            rpChatBox.DataBind();
         }
 
 
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            messages.Add("test" + messages.Count);
-            rpChatBox.DataSource = messages;
-            rpChatBox.DataBind();
         }
 
  

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -97,5 +98,26 @@ namespace SignalRChat.Models.Data
             return (isSuccess, msg);
         }
 
+        public static List<User> GetList()
+        {
+            string cmd = "select * from dbo.tblUser";
+            DataTable dt = Conn.ExecuteQuery(cmd);
+            var result = new List<User>();
+            for(int i = 0; i<dt.Rows.Count; i++)
+            {
+                var row = dt.Rows[i];
+                var tmp = row["Photo"].ToString();
+                result.Add(new User
+                {
+                    Username = row["Username"].ToString(),
+                    Password = row["Username"].ToString(),
+                    Name = row["Username"].ToString(),
+                    Photo = String.IsNullOrEmpty(tmp) ? new byte[0] : (byte[])row["Photo"],
+                    LastAccess = DateTime.Parse(row["LastAccess"].ToString()),
+                });
+            }
+
+            return result;
+        }
     }
 }
