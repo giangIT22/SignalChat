@@ -20,3 +20,47 @@ E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
 E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
 E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.dll
 E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.pdb
+C:\Users\pc\Desktop\SignalRChat\bin\SignalRChat.dll.config
+C:\Users\pc\Desktop\SignalRChat\bin\SignalRChat.dll
+C:\Users\pc\Desktop\SignalRChat\bin\SignalRChat.pdb
+C:\Users\pc\Desktop\SignalRChat\bin\AjaxControlToolkit.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.Owin.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.Owin.Security.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Newtonsoft.Json.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Owin.dll
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\pc\Desktop\SignalRChat\bin\Microsoft.Owin.Security.xml
+C:\Users\pc\Desktop\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
+C:\Users\pc\Desktop\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
+C:\Users\pc\Desktop\SignalRChat\obj\Debug\SignalRChat.dll
+C:\Users\pc\Desktop\SignalRChat\obj\Debug\SignalRChat.pdb
+C:\Users\pc\Desktop\New folder (2)\bin\SignalRChat.dll.config
+C:\Users\pc\Desktop\New folder (2)\bin\SignalRChat.dll
+C:\Users\pc\Desktop\New folder (2)\bin\SignalRChat.pdb
+C:\Users\pc\Desktop\New folder (2)\bin\AjaxControlToolkit.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.Owin.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.Owin.Security.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Newtonsoft.Json.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Owin.dll
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\pc\Desktop\New folder (2)\bin\Microsoft.Owin.Security.xml
+C:\Users\pc\Desktop\New folder (2)\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
+C:\Users\pc\Desktop\New folder (2)\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\New folder (2)\obj\Debug\SignalRChat.csproj.CopyComplete
+C:\Users\pc\Desktop\New folder (2)\obj\Debug\SignalRChat.dll
+C:\Users\pc\Desktop\New folder (2)\obj\Debug\SignalRChat.pdb

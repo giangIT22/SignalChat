@@ -18,6 +18,30 @@ body {
   overflow-y: auto;
 }
 
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+.direct-chat-text img {
+    width: 20px;
+}
+
+#txtMessage {
+    width: 88%;
+    height: 100px;
+}
+
 /*===========================================Authentication==================================*/
 .message {
     color: red;
@@ -118,7 +142,146 @@ body {
 .login .fix-pd {
     padding: 60px 32px;
 }
+/*==============================Modal create group=============================*/
+.modal-create {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
 
+    .modal-create.open{
+        display:flex;
+    }
+
+    .modal-create-container {
+        background: #fff;
+        width: 600px;
+        min-height: 300px;
+        position: relative;
+        max-width: calc(100% - 32px);
+    }
+
+.modal-header {
+    background: #009688;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #fff;
+    position: relative;
+}
+
+.modal-heading-icon {
+    margin-right: 16px;
+}
+
+.modal-close {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.8;
+    font-size: 14px;
+    color: black;
+}
+
+    .modal-close:hover {
+        opacity: 1;
+    }
+
+.modal-body {
+    padding: 16px;
+}
+
+.modal-label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.modal-input {
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 15px;
+    padding: 10px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 1px #c0c0c0;
+}
+
+.btnCreate {
+    width: 100%;
+    background: #009688;
+    padding: 5px 5px;
+    border: none;
+    color: rgb(44, 44, 44);
+    font-weight: 300;
+}
+
+
+
+
+/* Modal edit group  */
+
+.modal-edit {
+    border: 0.5px solid rgb(102, 101, 101);
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-edit-container {
+    background: #fff;
+    width: 400px;
+    min-height: 400px;
+    position: relative;
+    max-width: calc(100% - 32px);
+}
+
+.modal-edit__nav {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: none;
+    width: 100%;
+    background: #009688;
+    position: relative;
+}
+
+
+.modal-info__nav-title, .modal-edit__info-member, .btnAdd, .modal-edit__info-list {
+    margin: 10px 10px;
+}
+
+.modal-edit__info {
+}
+
+.modal-edit__info-title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: none;
+    border-radius: 2px;
+    width: 100%;
+}
+
+
+.modal-edit__info-list {
+    display: flex;
+    justify-content: space-between;
+}
+/*======================================*/
 
 /* Layout */
 .wrapper {
