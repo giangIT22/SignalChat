@@ -36,9 +36,9 @@ CREATE TABLE message
 	userImage VARCHAR(200),
 	created_at VARCHAR(200)
 )
-
+select * from message
 GO
-ALTER PROC addMessage (@userName NVARCHAR(50), @content NTEXT, @userImage VARCHAR(200) , @time VARCHAR(200))
+create PROC addMessage (@userName NVARCHAR(50), @content NTEXT, @userImage VARCHAR(200) , @time VARCHAR(200))
 AS
 BEGIN
 	INSERT INTO dbo.message
