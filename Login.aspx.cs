@@ -26,7 +26,7 @@ namespace SignalRChat
         protected void btnLogin_ServerClick(object sender, EventArgs e)
         {
             string username = Request.Form["username"].ToString();
-            string password = Request.Form["username"].ToString();
+            string password = Request.Form["password"].ToString();
             User user = null;
             string message = "";
             (user, message) = UserFunc.DangNhap(username, password);
