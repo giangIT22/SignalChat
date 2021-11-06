@@ -118,11 +118,14 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Scripts\Home\Home.js" />
+    <Content Include="Home.aspx" />
+    <Content Include="Scripts\ChatBox\ChatBox.js" />
     <Content Include="Content\emojionearea.min.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Home.aspx" />
+    <Content Include="ChatBox.aspx" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Styles\Home.css" />
+    <Content Include="TopBar.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,7 +174,8 @@
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
-    <Content Include="Styles\Home.css" />
+    <Content Include="Styles\ChatBox.css" />
+    <Content Include="Styles\Login.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -188,6 +192,13 @@
     <Compile Include="App_Code\ConnClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ChatBox.aspx.cs">
+      <DependentUpon>ChatBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChatBox.aspx.designer.cs">
+      <DependentUpon>ChatBox.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -210,6 +221,7 @@
     <Compile Include="Models\Data\Group.cs" />
     <Compile Include="Models\Data\Message.cs" />
     <Compile Include="Models\Data\User.cs" />
+    <Compile Include="Models\Data\UserUser.cs" />
     <Compile Include="Models\Hubs\PrivateChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
@@ -221,6 +233,13 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="App_Code\Users2.cs" />
+    <Compile Include="TopBar.Master.cs">
+      <DependentUpon>TopBar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TopBar.Master.designer.cs">
+      <DependentUpon>TopBar.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

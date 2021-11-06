@@ -9,8 +9,8 @@ namespace SignalRChat.Models.Data
     public class Message
     {
         public int Id { get; set; }
-        public string Sender { get; set; }
-        public string Receiver { get; set; }
+        public int SenderId { get; set; }
+        public int ReceiverId { get; set; }
         public int GroupId { get; set; }
 
         public string Attachment { get; set; }
@@ -32,11 +32,11 @@ namespace SignalRChat.Models.Data
 
         public static (bool, string) Add(Message message)
         {
-            string cmd = "exec ThemMessage @Sender , @Receiver , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
+            string cmd = "exec ThemMessage @SenderId , @ReceiverId , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
 
             int res = Conn.ExecuteScalar(cmd, 
                     new object[] { 
-                        message.Sender, message.Receiver, message.GroupId, System.Convert.FromBase64String(message.Attachment), message.AttachmentName,message.AttachmentExtension, message.Content
+                        message.SenderId, message.ReceiverId, message.GroupId, System.Convert.FromBase64String(message.Attachment), message.AttachmentName,message.AttachmentExtension, message.Content
                     }
                 );
             if (res > 0)
@@ -48,17 +48,17 @@ namespace SignalRChat.Models.Data
                 return (false, "Lỗi không xác định");
             }
         }
-        public static List<Message> GetConversation(string userA, string userB)
+        public static List<Message> GetConversation(int userAId, int userBId)
         {
-            var listA = GetList(userA,userB);
-            var listB = GetList(userB, userA);
+            var listA = GetList(userAId,userBId);
+            var listB = GetList(userBId,userAId);
             return listA.Concat(listB).ToList();
         }
 
-        public static List<Message> GetList(string sender, string receiver)
+        public static List<Message> GetList(int senderId, int receiverId)
         {
 
-            string cmd = "select * from dbo.tblMessage where Sender ='"+ sender + "' and Receiver='"+ receiver + "'";
+            string cmd = "select * from dbo.tblMessage where SenderId ='"+ senderId + "' and ReceiverId ='"+ receiverId + "'";
             DataTable dt = Conn.ExecuteQuery(cmd);
             var result = new List<Message>();
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -68,8 +68,8 @@ namespace SignalRChat.Models.Data
                 result.Add(new Message
                 {
                     Id = int.Parse(row["Id"].ToString()),
-                    Sender = row["Sender"].ToString(),
-                    Receiver = row["Receiver"].ToString(),
+                    SenderId = int.Parse( row["SenderId"].ToString() ),
+                    ReceiverId = int.Parse( row["ReceiverId"].ToString() ),
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
                     Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),

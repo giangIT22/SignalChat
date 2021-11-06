@@ -9,6 +9,7 @@ namespace SignalRChat.Models.Data
     public class AppConst
     {
         public static string SessionCurrentUserKey = "AshChat.Models.Data.AppState.CurrentUser";
+        public static string SessionCurrentUserFriends = "AshChat.Models.Data.AppState.CurrentUserFriends";
         public User CurrentUser = new User();
         
     }

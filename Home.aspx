@@ -1,65 +1,138 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRChat.Home" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <script src="Scripts/jquery-3.2.1.min.js"></script>
-    <script src="Scripts/jquery.signalR-2.2.2.min.js"></script>
-    <script src="signalr/hubs"></script>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TopBar.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRChat.Home1" EnableEventValidation="true" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Styles/Home.css">
-</head>
-<body>
-    <form id="form1" runat="server">
-    </form>
-        
-    <input id="current-receiver" type="text" value=""/>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
+    <div id="home-container">
         
 
-        <div id="chat-container">
+        <ul class="nav nav-tabs">
+          <li id="user-tab" class="home-tab active" ><a href="#">Mọi người</a></li>
+          <li id="group-tab" class="home-tab"><a href="#">Nhóm</a></li>
+        </ul>
+        <div id="content-container">
+            <div id="content-user">
+                <div id="filter-container">
+                    <input type="text" value="" />
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
 
-            <div id="chat-box">
-                <div id="message-box">
-
-                </div>
-                <div id="function-bar">
-                    <textarea id="ChatTextArea" cols="20" rows="1" disabled></textarea>
-                    <label for="inputFile" id="inputFileLbl">
-                        Upload
-                         <input id='inputFile' type="file" value="" />
+                    <label class="checkbox-inline">
+                        <asp:CheckBox ID="ckbFriendsRequest" runat="server" OnCheckedChanged="ckbFriendsRequest_CheckedChanged" /> Lời mời kết bạn
                     </label>
-                    
+                    <label class="checkbox-inline">
+                        <asp:CheckBox ID="ckbFriends" runat="server" OnCheckedChanged="ckbFriends_CheckedChanged" /> Bạn bè
+                    </label>
+                    <label class="checkbox-inline">
+                        <asp:CheckBox ID="ckbFriendsBlock" runat="server" OnCheckedChanged="ckbFriendsBlock_CheckedChanged" /> Đã chặn
+                    </label>
 
-                    <button id="btnSend" disabled>Gửi</button>
+
                 </div>
-            </div>
+                <div id="list-user">
+                    <asp:Repeater ID="rptUsers" runat="server" ViewStateMode="Enabled">
+                        <ItemTemplate>
 
-            <div id="contact_list">
+
+                                <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) != 5 )%>">
+
+                                    <div class="user-box">
+
+                                        <div class="user-name">
+                                            <%#Eval("Name")%>
+                                        </div>
+
+                                        <div class="user-btn">
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 0 )%>">
+                                                <asp:Button Type="button"  Text="Thêm bạn" ID="test" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AddFriendRequest" OnClick="UserBtnHandler" />
+                                                <asp:Button Type="button" Text="Chặn" ID="Button1" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
+                                            </asp:PlaceHolder> 
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 1 )%>">
+                                                <asp:Button Type="button" Text="Hủy lời mời kết bạn" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="DeleteFriendRequest" OnClick="UserBtnHandler"/>
+                                            </asp:PlaceHolder> 
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 2 )%>">
+                                                <asp:Button Type="button" Text="Chấp nhận" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AcceptFriendRequest" OnClick="UserBtnHandler"/>
+                                                <asp:Button Type="button" Text="Xóa" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="ReverseDeleteFriendRequest" OnClick="UserBtnHandler"/>
+                                            </asp:PlaceHolder>  
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 3 )%>">
+                                                <asp:Button Type="button" Text="Hủy kết bạn" ID="Button3" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnFriend" OnClick="UserBtnHandler" />
+                                                <asp:Button Type="button" Text="Chặn" ID="Button2" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
+                                            </asp:PlaceHolder>  
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 4 )%>">
+                                                <asp:Button Type="button" Text="Bỏ chặn" ID="Button4" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnBlock" OnClick="UserBtnHandler" />
+                                            </asp:PlaceHolder>  
+
+                                            <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 5 )%>">
+                                            </asp:PlaceHolder>  
+                                        </div>
+                                    </div>
+
+                                </asp:PlaceHolder>
+
+
+
+                        </ItemTemplate>
+                    </asp:Repeater>
+
+                </div>
                 
             </div>
-
+            <div id="content-group">
+                <h1>Group content</h1>
+            </div>
         </div>
-    
-    <img id="ItemImage" src="" width="auto" 
-     height="150">
+    </div>
+    <script>
+        // mặc định ban đầu ẩn tab group's content
+        $('#content-group').hide();
 
-    
+        $('#user-tab').click(function () {
+            $('#content-group').hide();
+            $('#content-user').show();
+            $('.home-tab').toArray().forEach(
+                e => {
+                    if (e.id == 'user-tab') {
+                        e.classList.add('active');
+                    } else {
+                        e.classList.remove('active');
+                    }
+                });
+        });
+        $('#group-tab').click(function () {
+            $('#content-group').show();
+            $('#content-user').hide();
+            $('.home-tab').toArray().forEach(
+                e => {
+                    if (e.id == 'group-tab') {
+                        e.classList.add('active');
+                    } else {
+                        e.classList.remove('active');
+                    }
+                });
+        });
+        $(function () {
+            // Đổi in đậm phần navigation
 
-    <button onclick="Test()">
-            shjet</button>
-    <button onclick="DownLoadFile('admin2','admin','Dcmm')">
-            shjet2s</button>
-</body>
+            var nav_options = $('.nav-option').toArray();
+            console.log("nav_opts: ", nav_options);
+            nav_options.forEach(
+                e => {
+                    console.log("e.datapage: ", e.dataset.page);
+                    if (e.dataset.page == 'Home') {
+                        e.classList = "nav-option active";
 
-<script src="Scripts/Home/Home.js"></script>
-<script>
-    let user_name = '<%=this.Username%>';
-    let gbl_file_variable = {
-        name: '',
-        content: '',
-        type: '',
-    };
-</script>
+                    } else {
+                        e.classList = "nav-option";
+                    }
 
-</html>
+                })
+        });
+
+    </script>
+</asp:Content>

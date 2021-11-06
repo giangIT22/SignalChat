@@ -97,7 +97,6 @@ namespace SignalRChat.Models.Data
             });
             return (isSuccess, msg);
         }
-
         public static List<User> GetList()
         {
             string cmd = "select * from dbo.tblUser";
@@ -109,8 +108,9 @@ namespace SignalRChat.Models.Data
                 var tmp = row["Photo"].ToString();
                 result.Add(new User
                 {
+                    Id = int.Parse(row["Id"].ToString()),
                     Username = row["Username"].ToString(),
-                    Password = row["Username"].ToString(),
+                    Password = row["Password"].ToString(),
                     Name = row["Username"].ToString(),
                     Photo = String.IsNullOrEmpty(tmp) ? new byte[0] : (byte[])row["Photo"],
                     LastAccess = DateTime.Parse(row["LastAccess"].ToString()),
@@ -120,4 +120,6 @@ namespace SignalRChat.Models.Data
             return result;
         }
     }
+
+    
 }

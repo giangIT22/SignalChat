@@ -10,53 +10,54 @@ namespace SignalRChat.Models.Hubs
 {
     public class PrivateChatHub : Hub
     {
-        public static Dictionary<string, string> dctConnectionId = new Dictionary<string, string>();
-        public static Dictionary<string, string> dctUsername = new Dictionary<string, string>();
+        // Duy trì IdConnection - 
+        private static Dictionary<int, string> dctConnectionId = new Dictionary<int, string>();
+        private static Dictionary<string, int> dctUserId = new Dictionary<string, int>();
 
-        public void Connect(string username)
+        public void Connect(int UserId)
         {
-            dctConnectionId[username] = Context.ConnectionId;
-            dctUsername[Context.ConnectionId] = username;
+            dctConnectionId[UserId] = Context.ConnectionId;
+            dctUserId[Context.ConnectionId] = UserId;
         }
+        
+        // Lấy danh sách liên hệ của một người dùng
+        public void GetContactsList(int UserId)
+        {
+            // Hiện tại là đang lấy tất cả người dùng, trừ người(client) gọi
+            var listUser = User_UserFunc.GetFriends(UserId)
+                .Where(e=>e.Id != UserId)
+                .Select(e => new UserDto {
+                    Id = e.Id,
+                    Username = e.Username, 
+                    Name = e.Name 
+                }).ToList();
 
-       
-        public List<string> getMessageOf(string user1, string user2)
-        {
-            return new List<string>() { "shiet", "mtfk" };
-        }
-        public void GetContactsList(string username)
-        {
-            var listUser = UserFunc.GetList().Where(e=>e.Username != username).Select(e => new { username = e.Username, name = e.Name }).ToList();
-            
             Clients.Caller.showContactsList(listUser);
-
         }
 
-        public void LoadMessageOf(string userA, string userB)
+        // Lấy danh sách tin nhắn của 2 người.
+        public void LoadMessageOf(int userAId, int userBId)
         {
-            List<Message> lstmsg = MessageFunc.GetConversation(userA, userB);
-
+            List<Message> lstmsg = MessageFunc.GetConversation(userAId, userBId);
             Clients.Caller.showListMessage(lstmsg.OrderBy(e=>e.CreationTime));
-
         }
 
-
-        public void SendPrivateMessage(string sender, string receiver, string content, string FileName, string FileType, string FileContent)
+        public void SendPrivateMessage(int senderId, int receiverId, string content, string FileName, string FileType, string FileContent)
         {
             var szContent = FileContent.Length;
-            if (dctConnectionId.ContainsKey(receiver))
+            if (dctConnectionId.ContainsKey(receiverId))
             {
                 // Người nhận đang online
-                string receiverId = dctConnectionId[receiver];
-                Clients.Client(receiverId).showMessage(sender, receiver, content, FileName, FileType, FileContent);
+                string receiverConnectionId = dctConnectionId[receiverId];
+                Clients.Client(receiverConnectionId).showMessage(senderId, receiverId, content, FileName, FileType, FileContent);
             }
 
-            Clients.Caller.showMessage(sender, receiver, content, FileName, FileType, FileContent);
+            Clients.Caller.showMessage(senderId, receiverId, content, FileName, FileType, FileContent);
 
             MessageFunc.Add(new Message
             {
-                Sender = sender,
-                Receiver = receiver,
+                SenderId = senderId,
+                ReceiverId = receiverId,
                 Content = content,
                 Attachment = FileContent,
                 AttachmentName = FileName,
@@ -73,19 +74,22 @@ namespace SignalRChat.Models.Hubs
         public override Task OnDisconnected(bool stopCalled)
         {
             string currentId = Context.ConnectionId;
-            dctUsername.Remove(currentId);
+            int UserId = dctUserId[currentId];
+            dctConnectionId.Remove(UserId);
 
-            if (dctUsername.ContainsKey(currentId)) {
-                string username = dctUsername[currentId];
-                dctConnectionId.Remove(username);
-            }
-
-
+            dctUserId.Remove(currentId);
 
             return base.OnDisconnected(stopCalled);
         }
 
         
+    }
+
+    public class UserDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Username { get; set; }
     }
     
 }

@@ -105,6 +105,9 @@
                     }
                 }
 
+                
+
+
 
                 chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message, userimg, CurrentDateTime) {
 
@@ -174,6 +177,8 @@
 
                     }
                 });
+
+               
 
                 // Send Button Click Event
                 $('#btnSendMsg').click(function () {
@@ -364,6 +369,7 @@
             else
                 PWClass = 'info';
 
+            // box private messge
             $('#PWCount').val(PWClass);
             var div1 = ' <div class="col-md-4"> <div  id="' + ctrId + '" class="box box-solid box-' + PWClass + ' direct-chat direct-chat-' + PWClass + '">' +
                 '<div class="box-header with-border">' +
@@ -402,6 +408,7 @@
 
 
             var $div = $(div1);
+
 
             // Closing Private Chat Box
             $div.find('#imgDelete').click(function () {
@@ -534,6 +541,8 @@
             }
             return true;
         }
+        
+        
 
     </script>
 
@@ -676,6 +685,27 @@
 
                 </div>
 
+                 <!--group -->
+                <div class="col-md-4">
+
+                    <div class="box box-solid box-primary">
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Groups <span id='GroupCount'></span></h3>
+                            <button id="btnCreateGroup" style="color:black;">Tạo</button>
+                        </div>
+
+                        <div class="box-footer box-comments" id="divgroup">
+                            <button id="btnGroup">Group1</button>
+                            <button class="btnEdit">...</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
 
                 <div class="row">
                     <div class="col-md-12">
@@ -784,6 +814,8 @@
             </div>
         </div>
 
+      
+
         <style>
             .upload-btn-wrapper {
                 position: relative;
@@ -809,15 +841,105 @@
                 height: 100px;
             }
         </style>
-
+        
         <script src="Scripts/bootstrap.min.js"></script>
-        <%--<script>
-            $(function () {
-                $("#txtMessage").emojioneArea();
-
-            });
-        </script>--%>
+       
 
     </form>
+       <div class="modal-create">
+            <div class="modal-create-container">
+            <header class="modal-header">
+                <div class="modal-close">
+                    <button class="btnClose">Close</button>
+                </div>
+                <Span>Group</Span>
+                
+            </header>
+
+            <div class="modal-body">
+                <label for="group-name" class="modal-label">
+                </label>
+                <input id="group-name" type="text" class="modal-input" placeholder="Nhập tên group">
+
+                <button class="btnCreate">
+                    Tạo group
+                    
+                </button>
+            </div>
+            </div>  
+    </div>
+
+
+
+
+    <div class="modal-edit">
+        <div class="modal-edit-container">
+        <div class="modal-edit__nav">
+            <div class="modal-info__nav-title">Tên nhóm</div>
+            <button class=" btnclose">Close</button>          
+        </div>
+        <div class="box" style="width: 100%; height: 10px ; background-color: rgba(184, 188, 192, 0.623);"></div>
+        <div class="modal-edit__info">
+            <div class="modal-edit__info-title">
+                <div class="modal-edit__info-member">3 Members</div>
+                <button class=" btnAdd">Add member</button>
+            </div>
+            <div class="box" style="width: 100%; height: 10px ; background-color: rgba(184, 188, 192, 0.623);"></div>
+            
+            <div class="modal-edit__info-list">
+                <span>Member 1</span>
+                <button class="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+    <script>
+
+
+        //modal create
+        $('#btnCreateGroup').click(function (e) {
+            e.preventDefault();
+            $('.modal-create').css("display","flex");
+        });
+
+        $('.btnClose').click(function (e) {
+            e.preventDefault();
+            $('.modal-create').css("display", "none");
+        });
+
+        $('.modal-create').click(function (e) {
+            e.preventDefault();
+            $('.modal-create').css("display", "none");
+        });
+
+
+        // modal edit
+        $('.btnEdit').click(function (e) {
+            e.preventDefault();
+            $('.modal-edit').css("display", "flex");
+        })
+        $('.btnclose').click(function (e) {
+            e.preventDefault();
+            $('.modal-edit').css("display", "none");
+        });
+
+        $('.modal-edit').click(function (e) {
+            e.preventDefault();
+            $('.modal-eidt').css("display", "none");
+        });
+
+        //$('.modal-create-container').click(function (e) {
+        //    e.stopPropagation();
+        //})
+    </script>
+
+        <script src="Scripts/bootstrap.min.js"></script>
+       
+           
+
+           
+
+
 </body>
 </html>

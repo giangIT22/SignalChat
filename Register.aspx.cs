@@ -48,8 +48,8 @@ namespace SignalRChat
 
             if (isSuccess)
             {
-               Response.Redirect("Login.aspx");
-            }
+               Response.Redirect("ChatBox.aspx");
+            } 
             else
             {
                 errorMessage.InnerText = msg;
