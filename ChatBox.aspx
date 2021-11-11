@@ -24,6 +24,7 @@
                 </div>
                 <div id="function-bar">
                     <textarea id="ChatTextArea" cols="20" rows="1" disabled></textarea>
+
                     <label for="inputFile" id="inputFileLbl">
                         Upload
                          <input id='inputFile' type="file" value="" />

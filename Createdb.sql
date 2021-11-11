@@ -569,7 +569,7 @@ as
 	where UserId = @UserId and (State = 1 or State = 2)
 go
 
-alter procedure GetListMessages
+create procedure GetListMessages
 	@SenderId int, @ReceiverId int
 as
 	select 
@@ -582,9 +582,7 @@ as
 	where SenderId = @SenderId and ReceiverId = @ReceiverId
 go
 
-exec GetListMessages 1,2
-
-alter procedure GetListGroupMessages
+create procedure GetListGroupMessages
 	@GroupId int
 as
 	select 

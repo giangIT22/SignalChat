@@ -139,9 +139,6 @@ namespace SignalRChat.Models.Hubs
 
             return base.OnDisconnected(stopCalled);
         }
-
-
-
         
     }
 

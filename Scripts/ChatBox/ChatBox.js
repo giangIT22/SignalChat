@@ -25,8 +25,9 @@ function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content,
 			console.log(fileType.indexOf('image'));
 			if(fileType.indexOf('image') != -1 ){
 				// hinh anh
-			   fileBlock = "<img class='message-img' src=\"data:" + fileType + ";base64," + fileContent + "\">"
-			   console.log("fileBlock: ",fileBlock);
+				let linkSrc = "data:" + fileType + ";base64," + fileContent;
+				fileBlock = "<img class='message-img' src=\"" + linkSrc+"\" onclick=\"DownLoadAttachment(\'" +linkSrc+ "\')\">"
+				console.log("fileBlock: ",fileBlock);
 			}else{
 			   // other file
 			}
@@ -146,6 +147,8 @@ $(function () {
 
 	})
 
+	
+
 
 	$.connection.hub.start().done(function () {
 		privateChatHub.server.connect(current_user_id);
@@ -191,9 +194,19 @@ function Test() {
 	console.log("GetSelectedContact: ", GetSelectedContact());
 }
 
+
+function DownLoadAttachment(linkSrc) {
+	console.log("DownLoadAttachment:", linkSrc);
+	const downloadLink = document.createElement("a");
+	downloadLink.href = linkSrc;
+	downloadLink.download = "downloadfile";
+	downloadLink.click();
+}
+
 function DownLoadFile(){
 	let contentType = gbl_file_variable.type;
 	let base64Data = gbl_file_variable.content;
+
 	const linkSource = `data:${contentType};base64,${base64Data}`;
 	const downloadLink = document.createElement("a");
 	downloadLink.href = linkSource;
