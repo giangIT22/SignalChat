@@ -13,7 +13,7 @@
 	border: 1px solid black ;
 	padding:15px;
 }
-#content-user #filter-container{
+#content-user #user-filter-container{
 	height: 10%;
 }
 #content-user #list-user{
@@ -35,14 +35,78 @@
 
 #content-user #list-user .user-box .user-name{
 	border: 1px solid pink;
-	height: 30%;
+	height: 40%;
 	font-weight: bold;
 }
 
 #content-user #list-user .user-box .user-btn{
 	border: 1px solid green;
-	height: 70%;
+	height: 60%;
 	display: flex;
 	align-items: center;
 	gap:8px;
 }
+
+
+
+
+/* ============== Group ================== */
+#content-group{
+	height: 100%;
+	border: 1px solid black ;
+	padding:15px;
+	display: grid;
+	grid-template-rows: 10% 90%;
+	grid-template-columns: 70% 30%;
+}
+
+#content-group #list-group{
+	border:1px solid cyan;
+	display: flex;
+	flex-wrap: wrap;
+	overflow-y:auto;
+	gap:14px;
+	align-content: flex-start;
+}
+
+
+	#content-group #list-group .group-box {
+		padding: 4px;
+		height: 80px;
+		width: 210px;
+		border: 1px solid blue;
+
+	}
+
+		#content-group #list-group .group-box .group-name {
+			border: 1px solid pink;
+			height: 40%;
+			font-weight: bold;
+			display: flex;
+			justify-content: space-between;
+			align-items:stretch;
+		}
+
+		#content-group #list-group .group-box .group-btn {
+			border: 1px solid green;
+			height: 60%;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+
+#content-group #list-group #group-filter-container{ 
+
+}
+
+#content-group #group-info-title{
+	border:1px solid green;
+}
+#content-group #group-info{
+	border:1px solid pink;
+}
+	#content-group #group-info #info-content a {
+		display: block;
+		text-align: left ;
+	}

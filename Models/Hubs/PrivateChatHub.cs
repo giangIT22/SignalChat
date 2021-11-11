@@ -14,10 +14,19 @@ namespace SignalRChat.Models.Hubs
         private static Dictionary<int, string> dctConnectionId = new Dictionary<int, string>();
         private static Dictionary<string, int> dctUserId = new Dictionary<string, int>();
 
+        // Group
+
         public void Connect(int UserId)
         {
             dctConnectionId[UserId] = Context.ConnectionId;
             dctUserId[Context.ConnectionId] = UserId;
+
+            var groupsOfUser = User_GroupFunc.GetGroupsOfUser(UserId);
+            foreach(var e in groupsOfUser)
+            {
+                Groups.Add(Context.ConnectionId, e.GroupId.ToString());
+            }
+            
         }
         
         // Lấy danh sách liên hệ của một người dùng
@@ -25,44 +34,83 @@ namespace SignalRChat.Models.Hubs
         {
             // Hiện tại là đang lấy tất cả người dùng, trừ người(client) gọi
             var listUser = User_UserFunc.GetFriends(UserId)
-                .Where(e=>e.Id != UserId)
-                .Select(e => new UserDto {
+                .Where(e => e.Id != UserId)
+                .Select(e => new ContactDto {
                     Id = e.Id,
-                    Username = e.Username, 
-                    Name = e.Name 
+                    Name = e.Name,
+                    IsGroup = false
                 }).ToList();
-
-            Clients.Caller.showContactsList(listUser);
+            var listGroup = User_GroupFunc.GetGroupsOfUser(UserId)
+                .Select(
+                    e => new ContactDto
+                    {
+                        Id = e.GroupId,
+                        Name = e.Name,
+                        IsGroup = true
+                    }
+                );
+            var result = listUser.Concat(listGroup).ToList();
+            Clients.Caller.showContactsList(result);
         }
 
         // Lấy danh sách tin nhắn của 2 người.
-        public void LoadMessageOf(int userAId, int userBId)
+        public void LoadMessageOf(int userAId, int userBId, string isGroup)
         {
-            List<Message> lstmsg = MessageFunc.GetConversation(userAId, userBId);
-            Clients.Caller.showListMessage(lstmsg.OrderBy(e=>e.CreationTime));
+            if (bool.Parse(isGroup))
+            {
+                List<Message> lstmsg = MessageFunc.GetGroupMessage(userBId);
+                Clients.Caller.showListMessage(lstmsg.OrderBy(e => e.CreationTime));
+            }
+            else
+            {
+                List<Message> lstmsg = MessageFunc.GetConversation(userAId, userBId);
+                Clients.Caller.showListMessage(lstmsg.OrderBy(e => e.CreationTime));
+            }
+            
         }
 
-        public void SendPrivateMessage(int senderId, int receiverId, string content, string FileName, string FileType, string FileContent)
+        public void SendPrivateMessage(int senderId, string senderName, int receiverId, string isGroup, string content, string FileName, string FileType, string FileContent)
         {
             var szContent = FileContent.Length;
-            if (dctConnectionId.ContainsKey(receiverId))
+
+
+            if (bool.Parse(isGroup))
             {
-                // Người nhận đang online
-                string receiverConnectionId = dctConnectionId[receiverId];
-                Clients.Client(receiverConnectionId).showMessage(senderId, receiverId, content, FileName, FileType, FileContent);
+                Clients.Group(receiverId.ToString()).showMessage(senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+
+                MessageFunc.Add(new Message
+                {
+                    SenderId = senderId,
+                    GroupId = receiverId,
+                    Content = content,
+                    Attachment = FileContent,
+                    AttachmentName = FileName,
+                    AttachmentExtension = FileType
+                });
+            }
+            else
+            {
+                if (dctConnectionId.ContainsKey(receiverId))
+                {
+                    // Người nhận đang online
+                    string receiverConnectionId = dctConnectionId[receiverId];
+                    Clients.Client(receiverConnectionId).showMessage(senderId, senderName , receiverId, isGroup, content, FileName, FileType, FileContent);
+                }
+
+                Clients.Caller.showMessage(senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+
+                MessageFunc.Add(new Message
+                {
+                    SenderId = senderId,
+                    ReceiverId = receiverId,
+                    Content = content,
+                    Attachment = FileContent,
+                    AttachmentName = FileName,
+                    AttachmentExtension = FileType
+                });
             }
 
-            Clients.Caller.showMessage(senderId, receiverId, content, FileName, FileType, FileContent);
-
-            MessageFunc.Add(new Message
-            {
-                SenderId = senderId,
-                ReceiverId = receiverId,
-                Content = content,
-                Attachment = FileContent,
-                AttachmentName = FileName,
-                AttachmentExtension = FileType
-            });
+            
 
 
         }
@@ -74,22 +122,34 @@ namespace SignalRChat.Models.Hubs
         public override Task OnDisconnected(bool stopCalled)
         {
             string currentId = Context.ConnectionId;
-            int UserId = dctUserId[currentId];
-            dctConnectionId.Remove(UserId);
+            if (dctUserId.ContainsKey(currentId))
+            {
+                int UserId = dctUserId[currentId];
+                dctConnectionId.Remove(UserId);
 
-            dctUserId.Remove(currentId);
+                dctUserId.Remove(currentId);
+
+                var groupsOfUser = User_GroupFunc.GetGroupsOfUser(UserId);
+                foreach (var e in groupsOfUser)
+                {
+                    Groups.Remove(UserId.ToString(), e.GroupId.ToString());
+                }
+            }
+            
 
             return base.OnDisconnected(stopCalled);
         }
 
+
+
         
     }
 
-    public class UserDto
+    public class ContactDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Username { get; set; }
+        public bool IsGroup { get; set; }
     }
     
 }

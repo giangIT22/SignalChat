@@ -124,6 +124,7 @@
     <Content Include="Content\style.css" />
     <Content Include="ChatBox.aspx" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\Home\Home.js" />
     <Content Include="Styles\Home.css" />
     <Content Include="TopBar.Master" />
     <None Include="Web.Debug.config">
@@ -219,9 +220,11 @@
     <Compile Include="Models\Conn.cs" />
     <Compile Include="Models\Data\AppConst.cs" />
     <Compile Include="Models\Data\Group.cs" />
+    <Compile Include="Models\Data\User_Group.cs" />
     <Compile Include="Models\Data\Message.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\Data\UserUser.cs" />
+    <Compile Include="Models\Hubs\GroupHub.cs" />
     <Compile Include="Models\Hubs\PrivateChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

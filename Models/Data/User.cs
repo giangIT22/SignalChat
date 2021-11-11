@@ -64,7 +64,7 @@ namespace SignalRChat.Models.Data
                     Id = int.Parse(row["Id"].ToString()),
                     Username = row["Username"].ToString(),
                     Password = row["Password"].ToString(),
-                    Name = row["Name"].ToString(),
+                    Name = row["Username"].ToString(),
                     Sex = int.Parse(row["Sex"].ToString()),
                     Photo = String.IsNullOrEmpty(sb) ? null : (byte[])row["Photo"],
                     LastAccess = DateTime.Parse(row["LastAccess"].ToString()),

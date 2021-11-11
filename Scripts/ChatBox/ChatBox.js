@@ -3,19 +3,21 @@ function GetSelectedContact() {
 	// Lấy liên hệ đang được chọn 
 	var e = $('.contact-box-selected');
 	console.log("selected contact:", e);
-	return e[0].dataset.userid;
+	return {
+		UserId : e[0].dataset.userid,
+		IsGroup : e[0].dataset.isgroup
+	};
 }
-
+ 
 function GetMessageContent() {
 	console.log("message content: ", $('#ChatTextArea').val());
 	return e = $('#ChatTextArea').val();
 }
 
-function addMessageToBoxChat(senderId, receiverId, content, fileName, fileType, fileContent) {
+function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
 		console.log("AddMessageToBoxChat!!!!! ", fileName);
 		console.log("fileContent: ", fileContent.length)
 		let classList = "message-content";
-		
 
 		let fileBlock = '';
 		if(fileName!=''){
@@ -30,13 +32,25 @@ function addMessageToBoxChat(senderId, receiverId, content, fileName, fileType, 
 			}
 			fileBlock = "<div class='msg-attachment'>" + fileBlock + "</div>"
 		}
-		
 
-		
+	let txt = "";
+	console.log("isgroup: ", isGroup);
+	if (isGroup?.toLowerCase() == "true") {
 
-		let txt = "<div class='message-container" + (user_id == senderId ? " ms-self" : "") + "'>"
-		+ fileBlock 
-		+"<div class='" + classList + "'>" + content + "</div></div>"
+		txt = "<div class='message-container" + (current_user_id == senderId ? " ms-self" : "") + "'>"
+			+ fileBlock
+			+ "<div class='" + classList + " group-msg'>"
+			+ "<div class=\'sender-name\' >" + senderName+"</div>"
+			+ content
+			+ "</div> </div>";
+	} else {
+		txt = "<div class='message-container" + (current_user_id == senderId ? " ms-self" : "") + "'>"
+			+ fileBlock
+			+ "<div class='" + classList + "'>"
+			+ content
+			+ "</div> </div>";
+    }
+	
 
 		console.log("message block: ",txt);
 
@@ -54,9 +68,11 @@ $(function () {
 
 	$('#current-receiver').hide();
 	$('#current-receiver').change(function(){
-		let currentReceiverId = $('#current-receiver').val();
-		console.log("currentReceiver:", currentReceiverId);
-		privateChatHub.server.loadMessageOf(user_id,currentReceiverId);
+		
+		let selectedContact = GetSelectedContact();
+		
+		console.log("currentReceiver:", selectedContact.UserId, selectedContact.IsGroup);
+		privateChatHub.server.loadMessageOf(current_user_id, selectedContact.UserId, selectedContact.IsGroup);
 	})
 
 	$('#inputFile').attr('title', '');
@@ -71,7 +87,7 @@ $(function () {
 		console.log("getlist msg: ", lstMessages);
 		$('#message-box').empty();
 		lstMessages.forEach(e => {
-			addMessageToBoxChat(e.SenderId,e.ReceiverId,e.Content,e.AttachmentName,e.AttachmentExtension,e.Attachment);
+			addMessageToBoxChat(e.SenderId,e.SenderName,e.ReceiverId,(e.GroupId == "0" ? "false" : "true" ),e.Content,e.AttachmentName,e.AttachmentExtension,e.Attachment);
 		})
 	};
 
@@ -85,8 +101,10 @@ $(function () {
 	privateChatHub.client.showContactsList = function (contactsArr) {
 		console.log(contactsArr);
 		contactsArr.forEach(e => {
-			let elm = "<div class='contact-box' data-userid='" 
-			+ e.Id + "' onclick=\"SelectContact(\'" + e.Id + "\')\" > " + e.Name + "</div>";
+			let elm = "<div class='contact-box' "
+				+ " data-userid='" + e.Id + "' "
+				+ " data-isgroup='" + e.IsGroup + "' "
+				+ "onclick=\"SelectContact(\'" + e.Id + "\',\'" + e.IsGroup + "\')\" > " + e.Name + "</div>";
 			$('#contact_list').append(elm);
 		});
 
@@ -96,28 +114,42 @@ $(function () {
  
 	};
 
-	privateChatHub.client.showMessage = function (senderId, receiverId, content, fileName, fileType, fileContent) {
-		addMessageToBoxChat(senderId, receiverId, content, fileName, fileType, fileContent);
+	privateChatHub.client.showMessage = function (senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
+
+		console.log("showMessage - receiverId:", receiverId);
+		console.log("showMessage - GetSelectedContact:", GetSelectedContact());
+
+		let selectedContact = GetSelectedContact();
+
+		if (selectedContact.UserId == receiverId && selectedContact.IsGroup == isGroup) {
+			addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+		} else {
+			console.log("add notify to user: ", receiverId);
+        }
+		
 	}
-	$()
 	$('#btnSend').click(function () {
 		console.log("send message", gbl_file_variable);
-		let senderId = user_id;
-		let receiverId = GetSelectedContact();
+		let senderId = current_user_id;
+		let senderName = current_user_name;
+		let selectedContact = GetSelectedContact();
 		let content = GetMessageContent();
 		$('#ChatTextArea').val('');
+		console.log("btn Send message")
 		console.log("senderId: ", senderId);
-		console.log("receiverId: ", receiverId);
+		console.log("receiverId: ", selectedContact.UserId);
+		console.log("isGroup: ", selectedContact.IsGroup);
 		console.log("content: ", content);
-		privateChatHub.server.sendPrivateMessage(senderId, receiverId, content, gbl_file_variable.name, gbl_file_variable.type, gbl_file_variable.content);
-		gbl_file_variable = default_file_value;
+		console.log("isGroup: ", content);
+		privateChatHub.server.sendPrivateMessage(senderId, senderName, selectedContact.UserId, selectedContact.IsGroup , content, gbl_file_variable.name, gbl_file_variable.type, gbl_file_variable.content);
+		gbl_file_variable = DEFAULT_FILE_VALUE;
 
 	})
 
 
 	$.connection.hub.start().done(function () {
-		privateChatHub.server.connect(user_id);
-		privateChatHub.server.getContactsList(user_id);
+		privateChatHub.server.connect(current_user_id);
+		privateChatHub.server.getContactsList(current_user_id);
 	});
 
 	// Create a function that the hub can call to broadcast messages.
@@ -125,38 +157,38 @@ $(function () {
 });
 
 // Thêm 1 liên hệ vào danh sách liên hệ
-function AddContactToView(username, name) {
-	let e = "<div class='contact-box' data-username='" + username + "' onclick=\"SelectContact(\'" + username + "\')\" > " + name + "</div>";
+function AddContactToView(userid,isgroup, name) {
+	let e = "<div class='contact-box' data-userid='" + userid + "' data-isgroup='" + isgroup + "'  onclick=\"SelectContact(\'" + userid + "\',\'" + isgroup + "\')\" > " + name + "</div>";
 	$('#contact_list').append(e);
 }
 
 // Khi lực chọn 1 liên hệ để nhắn tin
-function SelectContact(UserId) {
+function SelectContact(UserId,IsGroup) {
 	// able nút gửi và textarea
 	// ban đầu khi chưa chọn ai thì không được nhập vào ô tin nhắn, và nút gửi, khi chọn liên hệ rồi thỉ phải enable lại
 	$('#ChatTextArea').prop('disabled', false); 
 	$('#btnSend').prop('disabled', false);
-	$('#current-receiver').val(UserId).trigger('change');
 	console.log("$('#current-receiver').val(): ", $('#current-receiver').val());
 
 	// select các contact-box với prefix contact-box
 	let contactsBoxArr = $("*[class^='contact-box']").toArray(); 
 
 	contactsBoxArr.forEach(e => {
-		if (e.dataset.userid == UserId) {
+		if (e.dataset.userid == UserId && e.dataset.isgroup == IsGroup) {
 			e.classList = ['contact-box-selected'];
 		} else {
 			e.classList = ['contact-box'];
 		}
 	})
 	console.log("after select:", contactsBoxArr);
+
+	$('#current-receiver').val(UserId).trigger('change');
 }
 
 
 
 function Test() {
-	console.log("gbl_file_variable: ", gbl_file_variable);
-	console.log(gbl_file_variable.length);
+	console.log("GetSelectedContact: ", GetSelectedContact());
 }
 
 function DownLoadFile(){

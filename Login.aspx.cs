@@ -18,15 +18,13 @@ namespace SignalRChat
             User currentUser = (User)Session[AppConst.SessionCurrentUserKey];
             if (currentUser != null)
             {
-                Response.Redirect("ChatBox.aspx");
+                Response.Redirect("Home.aspx");
             }
-
+            
         }
 
         protected void btnLogin_ServerClick(object sender, EventArgs e)
         {
-            var test = Request.Form["ctl00$Content$username"];
-            var test2 = Request;
             string username = txtUsername.Text;
             string password = txtPassword.Text;
             User user = null;
@@ -37,7 +35,7 @@ namespace SignalRChat
             {
                 Session[AppConst.SessionCurrentUserKey] = user;
                 
-                Response.Redirect("ChatBox.aspx");
+                Response.Redirect("Home.aspx");
             }
             else
             {

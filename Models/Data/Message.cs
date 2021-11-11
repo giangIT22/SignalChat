@@ -10,6 +10,7 @@ namespace SignalRChat.Models.Data
     {
         public int Id { get; set; }
         public int SenderId { get; set; }
+        public string SenderName { get; set; }
         public int ReceiverId { get; set; }
         public int GroupId { get; set; }
 
@@ -58,8 +59,8 @@ namespace SignalRChat.Models.Data
         public static List<Message> GetList(int senderId, int receiverId)
         {
 
-            string cmd = "select * from dbo.tblMessage where SenderId ='"+ senderId + "' and ReceiverId ='"+ receiverId + "'";
-            DataTable dt = Conn.ExecuteQuery(cmd);
+            string cmd = "exec GetListMessages @SenderId , @ReceiverId";
+            DataTable dt = Conn.ExecuteQuery(cmd, new object[] { senderId, receiverId});
             var result = new List<Message>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -69,6 +70,7 @@ namespace SignalRChat.Models.Data
                 {
                     Id = int.Parse(row["Id"].ToString()),
                     SenderId = int.Parse( row["SenderId"].ToString() ),
+                    SenderName = row["SenderUsername"].ToString(),
                     ReceiverId = int.Parse( row["ReceiverId"].ToString() ),
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
@@ -83,6 +85,33 @@ namespace SignalRChat.Models.Data
             return result;
         }
 
+        public static List<Message> GetGroupMessage(int GroupId)
+        {
+            string cmd = "exec GetListGroupMessages @GroupId";
+            DataTable dt = Conn.ExecuteQuery(cmd, new object[] { GroupId});
+            var result = new List<Message>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var row = dt.Rows[i];
+                var tmp = row["Attachment"].ToString();
+                result.Add(new Message
+                {
+                    Id = int.Parse(row["Id"].ToString()),
+                    SenderId = int.Parse(row["SenderId"].ToString()),
+                    SenderName = row["SenderUsername"].ToString(),
+                    ReceiverId = int.Parse(row["ReceiverId"].ToString()),
+                    GroupId = int.Parse(row["GroupId"].ToString()),
+                    Content = row["Content"].ToString(),
+                    Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
+                    AttachmentName = row["AttachmentName"].ToString(),
+                    AttachmentExtension = row["AttachmentExtension"].ToString(),
+                    LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),
+                    CreationTime = DateTime.Parse(row["CreationTime"].ToString()),
+                });
+            }
+
+            return result;
+        }
     }
 
 }

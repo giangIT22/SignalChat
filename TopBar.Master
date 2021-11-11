@@ -9,6 +9,8 @@
     <link href="Content/icheck-bootstrap.css" rel="stylesheet" />
     <link href="Content/style.css" rel="stylesheet" />
     
+    
+
     <script src="Scripts/jquery-3.2.1.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.2.min.js"></script>
 
@@ -34,10 +36,12 @@
         
             <asp:ContentPlaceHolder ID="Content" runat="server">
             </asp:ContentPlaceHolder>
+
         </div>
     </form>
 
 
 </body>
+<script src="Scripts/bootstrap.js"></script>
 </html>
  

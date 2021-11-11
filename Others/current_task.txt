@@ -21,9 +21,6 @@
 
 Thêm :
 	- Lazy load tin nhắn mỗi lần chỉ load 10 tin cuối, kéo lên thì load thêm !
-		
-
-
 	- Xem thông tin users
 
 Grouping:
@@ -31,10 +28,8 @@ Grouping:
 	Xem thông tin của 1 group
 		Tên, decription, số lượng thành viên, số người online
 
-
 		Extra khi người đó là đã là thành viên.
 			Danh sách thành viên
-		
 
 
 Trạng thái giữa user-user:
@@ -55,7 +50,7 @@ Trạng thái giữa user-user:
 Chú ý :
 	Nếu người A chặn người B:
 		thì giao diện người dùng A khi người B tìm kiếm sẽ không có bất kì nút gì để nhấn cả. Vậy ta cần thông tin của Người chặn.
-		hay tổng quát hơn một số hành động khi lưu vào trong bảng User sẽ cần 1 trường nữa gọi là CreaterId : người thực hiện
+		hay tổng quát hơn một số hành động khi lưu vào trong bảng User sẽ cần 1 trường nữa gọi là ExecutorId : người thực hiện
 			Vd : Khi giá trị trường trạng thái là 0, 
 
 User_Group:
@@ -79,6 +74,8 @@ User_Group:
 	Người bị chặn khỏi group. (3)
 
 	Info:
+
+
 
 * Ràng buộc Message : nếu không phải đối tượng cùng bảng User_user / Group_Group thì không nhắn được.
 	-> thử xem nếu không ràng buộc có nhắn được không !

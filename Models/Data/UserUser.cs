@@ -39,8 +39,6 @@ namespace SignalRChat.Models.Data
     }
     public class User_UserFunc
     {
-        
-
         public static List<UserViewDto> GetList(int UserId)
         {
             string query = "exec GetUser_User @UserId";
