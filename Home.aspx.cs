@@ -237,6 +237,7 @@ namespace SignalRChat
 
         protected void btnCreateGroup_Click(object sender, EventArgs e)
         {
+            currentTab = "group";
             string groupName = txtGroupName.Text;
             currentUser = (User)Session[AppConst.SessionCurrentUserKey];
             bool IsSuccess = false;
@@ -251,10 +252,11 @@ namespace SignalRChat
             rptGroups.DataSource = GetGroupList();
             rptGroups.DataBind();
             
-        }
+    }
 
         public void ShowDetailOfGroup(int GroupId)
         {
+            currentTab = "group";
             currentUser = (User)Session[AppConst.SessionCurrentUserKey];
             var group = GroupFunc.GetGroup(GroupId, currentUser.Id);
             if (group == null)
@@ -289,6 +291,7 @@ namespace SignalRChat
                 this.ShowingDetail = false;
                 lblExitDetailMode.Text = "Thêm mới";
                 btnExitDetailMode.Text = "+";
+                currentTab = "group";
             }
             else
             {

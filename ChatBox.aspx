@@ -41,7 +41,7 @@
         </div>
         
     
-        <button type="button" onclick="Test()" >click me</button>
+        <!--<button type="button" onclick="Test()" >click me</button>-->
     <script>
         $(function () {
             // Đổi in đậm phần navigation

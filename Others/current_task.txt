@@ -1,3 +1,17 @@
+
+Problems :
+	
+	List group memeber
+	Nên reset l
+
+Rem task :
+	giao diện
+	hiện notification
+	
+
+======================
+
+
 - Xử lí khi hết session, mà 
 
 - Xử lí gửi file, ảnh file mặc định !, giới hạn độ lớn của file.
@@ -13,11 +27,8 @@
 
 - heart beat, 10p logout ?
 
-
 Đang sai:
 - Người dùng nhắn đến, nếu đang không bọn box đấy thì chỉ hiện icon thôi !
-- Nhắn tin rỗng.
-- Check lại xem sửa ảnh bị stuck sửa đúng chưa
 
 Thêm :
 	- Lazy load tin nhắn mỗi lần chỉ load 10 tin cuối, kéo lên thì load thêm !
@@ -30,7 +41,6 @@ Grouping:
 
 		Extra khi người đó là đã là thành viên.
 			Danh sách thành viên
-
 
 Trạng thái giữa user-user:
 	
@@ -82,3 +92,13 @@ User_Group:
 	
 * Thêm option clear bảng thông tin.
 		Phần dưới bảng thông tin sẽ là nút để thêm mới nhóm
+
+
+
+
+
+
+
+
+
+
