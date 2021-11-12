@@ -27,13 +27,9 @@ namespace SignalRChat
         }
 
 
-
         protected void btnSend_Click(object sender, EventArgs e)
         {
         }
-
- 
-
     }
     
 }

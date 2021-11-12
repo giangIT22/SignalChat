@@ -68,12 +68,13 @@
         // Global JS variable
         let current_user_id = '<%=this.currentUser.Id%>';
         let current_user_name = '<%=this.currentUser.Name%>';
+
         let DEFAULT_FILE_VALUE = {
             name: '',
             content: '',
             type: '',
         };
-        let gbl_file_variable = DEFAULT_FILE_VALUE;
+        let gbl_file_variable = DEFAULT_FILE_VALUE;// lưu dữ liệu file đang chọn
     </script>
  
 </asp:Content>

@@ -35,11 +35,6 @@ namespace SignalRChat
                 rptGroups.DataSource = GetGroupList();
                 rptGroups.DataBind();
 
-
-                // test
-                //twGroupMembers.DataSource = new List<string>() { "a", "b", "c" };
-                //twGroupMembers.DataBind();
-
             }
             else
             {
@@ -89,7 +84,6 @@ namespace SignalRChat
             var src = GetUsersList();
             rptUsers.DataSource = src;
             rptUsers.DataBind();
-
         }
 
         protected void ckbFriends_CheckedChanged(object sender, EventArgs e)
