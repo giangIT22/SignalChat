@@ -519,7 +519,6 @@ go
 
 -- Lấy danh sách user của 1 group.
 -- Chỉ owner/member của group mới thực hiện được tác vụ này, không phải sẽ trả về null
-
 create procedure GetUsersToGroup
 	@UserId int, @GroupId int
 as
