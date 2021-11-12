@@ -18,21 +18,22 @@ namespace SignalRChat
         }
         protected void btnRegister_ServerClick(object sender, EventArgs e)
         {
-            string username = Request.Form["username"].ToString();
-            string password = Request.Form["password"].ToString();
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+            string repassword = txtRepassword.Text;
 
 
             if (username == "")
             {
                 errorMessage.InnerText = "Vui lòng nhập tên người dùng";
                 return;
-            } else if (Password.Value == "")
+            } else if (password == "")
             {
                 errorMessage.InnerText = "Vui lòng nhập mật khẩu";
                 return;
             }
 
-            if (Password.Value != Repassword.Value)
+            if (password != repassword)
             {
                 errorMessage.InnerText = "Mật khẩu nhập lại không chính xác";
                 return;

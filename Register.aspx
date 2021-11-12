@@ -14,15 +14,15 @@
                 </div>
                 <h5>Tạo tài khoản</h5>
                     <div class="form-group">
-                        <input type="text" name="name" id="username" placeholder="Tên đăng nhập" class="form-control" runat="server">
+                        <asp:TextBox ID="txtUsername" runat="server" placeholder="Tên đăng nhập" class="form-control" ></asp:TextBox>
                         <span class="form-message"></span>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="Password" placeholder="Mật khẩu" class="form-control" runat="server">
+                        <asp:TextBox ID="txtPassword" runat="server" placeholder="Mật khẩu" class="form-control" TextMode="Password"></asp:TextBox>
                         <span class="form-message"></span>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="rePassword" id="Repassword" placeholder="Nhập lại mật khẩu" class="form-control" runat="server">
+                        <asp:TextBox ID="txtRepassword" runat="server" placeholder="Nhập lại mật khẩu" class="form-control" TextMode="Password"></asp:TextBox>
                         <span class="form-message"></span>
                     </div>
                     <button class="form-submit" runat="server" id="btnRegister" onserverclick="btnRegister_ServerClick">Đăng ký</button>
