@@ -140,16 +140,13 @@ $(function () {
 		//console.log("type of selectedContact.IsGroup: ", typeof selectedContact.IsGroup);
 
 		if (isGroup == 'true') {
-			console.log("fuck");
 			if (selectedContact.UserId == receiverId && selectedContact.IsGroup == 'true') {
 				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
 			} else {
 				// push notification
-				console.log("fuck2");
             }
 
 		} else {
-			console.log("fuck else?");
 			if ((selectedContact.UserId == senderId || selectedContact.UserId == receiverId) && selectedContact.IsGroup == 'false') {
 				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
 			} else {
