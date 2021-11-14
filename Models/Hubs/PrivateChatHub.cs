@@ -135,8 +135,8 @@ namespace SignalRChat.Models.Hubs
                     Groups.Remove(UserId.ToString(), e.GroupId.ToString());
                 }
             }
-            
 
+            Clients.Caller.OnDisconnected();
             return base.OnDisconnected(stopCalled);
         }
         

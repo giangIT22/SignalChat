@@ -38,9 +38,8 @@ namespace SignalRChat
                 errorMessage.InnerText = "Mật khẩu nhập lại không chính xác";
                 return;
             }
-
-
             
+
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
             bool isSuccess = false;

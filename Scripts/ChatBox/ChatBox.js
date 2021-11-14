@@ -21,7 +21,7 @@ function GetMessageContent() {
 }
 
 function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
-		//console.log("AddMessageToBoxChat!!!!! ", fileName);
+		console.log("AddMessageToBoxChat!!!!! ", fileName);
 		//console.log("fileContent: ", fileContent.length)
 		let classList = "message-content";
 
@@ -50,12 +50,15 @@ function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content,
 				+ "<div class=\'sender-name\' >" + senderName+"</div>"
 				+ content
 				+ "</div> </div>";
+
 		} else {
+
 			txt = "<div class='message-container" + (current_user_id == senderId ? " ms-self" : "") + "'>"
 				+ fileBlock
 				+ "<div class='" + classList + "'>"
 				+ content
 				+ "</div> </div>";
+
 		}
 	
 
@@ -113,36 +116,75 @@ $(function () {
 
 	};
 
+
 	privateChatHub.client.showMessage = function (senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
 
-		//console.log("showMessage - receiverId:", receiverId);
-		//console.log("showMessage - GetSelectedContact:", GetSelectedContact());
+		// There 2 case :
+		// sender = current user => select box to push by receiverId
+		// sender = other user => select box to push by senderId
+
+		// group case
+		// sender = current user / other user => only find select box by receiverId (groupId)
+		
 
 		let selectedContact = GetSelectedContact();
 
-		if (
-			(selectedContact.UserId == senderId && selectedContact.IsGroup == isGroup)
-			|| (current_user_id == senderId && selectedContact.UserId == receiverId && selectedContact.IsGroup == isGroup)
-		) {
-			addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
-		} else {
-			//console.log("push notification to: " + receiverId + " is group = " + isGroup);
-			//$('.contact-box').toArray().forEach(e => {
-			//	console.log(e);
-			//	if (e.dataset.userid == senderId && e.dataset.isgroup == isGroup) {
-			//		let notiDiv = e.querySelector('.noti');
-			//		if (notiDiv != null) {
-			//			notiDiv.innerHTML = Number.parseInt(notiDiv.innerHTML) + 1;
-			//		} else {
-			//			e.innerHTML += "<div class='noti'> 1 </div> ";
-   //                 }
-			//		//e.innerHTML = e.innerHTML + "<div>";
-   //             }
-   //         })
+		//console.log("showMessage - current_user_id:", current_user_id);
+		//console.log("showMessage - senderId:", senderId);
+		//console.log("showMessage - receiverId:", receiverId);
+		//console.log("showMessage - isGroup:", isGroup);
+		//console.log("showMessage - isGroup:", isGroup=='true');
+		//console.log("showMessage - selectedContact:", selectedContact);
 
+		//console.log("type of isGroup: ", typeof isGroup);
+		//console.log("type of selectedContact.IsGroup: ", typeof selectedContact.IsGroup);
+
+		if (isGroup == 'true') {
+			console.log("fuck");
+			if (selectedContact.UserId == receiverId && selectedContact.IsGroup == 'true') {
+				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+			} else {
+				// push notification
+				console.log("fuck2");
+            }
+
+		} else {
+			console.log("fuck else?");
+			if ((selectedContact.UserId == senderId || selectedContact.UserId == receiverId) && selectedContact.IsGroup == 'false') {
+				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+			} else {
+				// push notification
+            }
         }
+
+		//if (
+		//	(selectedContact.UserId == senderId && selectedContact.IsGroup == isGroup)
+		//	|| (selectedContact.UserId == receiverId && selectedContact.IsGroup == isGroup)
+		//) {
+		//	addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+		//} else {
+			
+		//	console.log("push notification to: " + receiverId + " is group = " + isGroup);
+		//	//$('.contact-box').toArray().forEach(e => {
+		//	//	console.log(e);
+		//	//	if (e.dataset.userid == senderId && e.dataset.isgroup == isGroup) {
+		//	//		let notiDiv = e.querySelector('.noti');
+		//	//		if (notiDiv != null) {
+		//	//			notiDiv.innerHTML = Number.parseInt(notiDiv.innerHTML) + 1;
+		//	//		} else {
+		//	//			e.innerHTML += "<div class='noti'> 1 </div> ";
+  // //                 }
+		//	//		//e.innerHTML = e.innerHTML + "<div>";
+  // //             }
+  // //         })
+
+  //      }
 		
 	}
+
+	privateChatHub.client.OnDisconnected = function () {
+		location.reload();
+    }
 	$('#btnSend').click(function () {
 		//console.log("send message", gbl_file_variable);
 		let senderId = current_user_id;
