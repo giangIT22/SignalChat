@@ -31,22 +31,22 @@ namespace SignalRChat.Models.Data
     public class MessageFunc
     {
 
-        public static (bool, string) Add(Message message)
+        public static (int, string) Add(Message message)
         {
             string cmd = "exec ThemMessage @SenderId , @ReceiverId , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
 
-            int res = Conn.ExecuteScalar(cmd, 
+            int InsertedId = Conn.ExecuteScalar(cmd, 
                     new object[] { 
                         message.SenderId, message.ReceiverId, message.GroupId, System.Convert.FromBase64String(message.Attachment), message.AttachmentName,message.AttachmentExtension, message.Content
                     }
                 );
-            if (res > 0)
+            if (InsertedId > 0)
             {
-                return (true, "");
+                return (InsertedId, "");
             }
             else
             {
-                return (false, "Lỗi không xác định");
+                return (-1, "Lỗi không xác định");
             }
         }
         public static List<Message> GetConversation(int userAId, int userBId)
@@ -55,7 +55,11 @@ namespace SignalRChat.Models.Data
             var listB = GetList(userBId,userAId);
             return listA.Concat(listB).ToList();
         }
-
+        public static void DeleteMessage(int Id)
+        {
+            string cmd = "delete AshChat.dbo.tblMessage where Id = "+ Id;
+            var result = Conn.ExecuteNonQuery(cmd);
+        }
         public static List<Message> GetList(int senderId, int receiverId)
         {
 
@@ -83,6 +87,32 @@ namespace SignalRChat.Models.Data
             }
 
             return result;
+        }
+
+        public static Message GetById(int Id)
+        {
+            string cmd = "select * from AshChat.dbo.tblMessage where Id = " + Id;
+            DataTable dt = Conn.ExecuteQuery(cmd);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var row = dt.Rows[i];
+                var tmp = row["Attachment"].ToString();
+                return new Message
+                {
+                    Id = int.Parse(row["Id"].ToString()),
+                    SenderId = int.Parse(row["SenderId"].ToString()),
+                    ReceiverId = int.Parse(row["ReceiverId"].ToString()),
+                    GroupId = int.Parse(row["GroupId"].ToString()),
+                    Content = row["Content"].ToString(),
+                    Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
+                    AttachmentName = row["AttachmentName"].ToString(),
+                    AttachmentExtension = row["AttachmentExtension"].ToString(),
+                    LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),
+                    CreationTime = DateTime.Parse(row["CreationTime"].ToString()),
+                };
+            }
+            return null;
+
         }
 
         public static List<Message> GetGroupMessage(int GroupId)

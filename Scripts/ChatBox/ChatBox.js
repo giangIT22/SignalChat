@@ -20,7 +20,7 @@ function GetMessageContent() {
 	return e = $('#ChatTextArea').val();
 }
 
-function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
+function addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
 		console.log("AddMessageToBoxChat!!!!! ", fileName);
 		//console.log("fileContent: ", fileContent.length)
 		let classList = "message-content";
@@ -42,30 +42,62 @@ function addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content,
 
 		let txt = "";
 		//console.log("isgroup: ", isGroup);
-		if (isGroup?.toLowerCase() == "true") {
 
-			txt = "<div class='message-container" + (current_user_id == senderId ? " ms-self" : "") + "'>"
-				+ fileBlock
-				+ "<div class='" + classList + " group-msg'>"
-				+ "<div class=\'sender-name\' >" + senderName+"</div>"
-				+ content
-				+ "</div> </div>";
+		if (current_user_id == senderId) {
+			if (isGroup?.toLowerCase() == "true") {
 
+				txt = "<div class='message-container ms-self' data-messageid='" + MessageId + "' >"
+					+ fileBlock
+					+ "<div class='" + classList + " group-msg'>"
+					+ "<div class=\'sender-name\' >"
+					+ senderName
+					+ "</div>"
+					+ content
+					+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+					+ "</div> </div>";
+
+			} else {
+
+				txt = "<div class='message-container ms-self'  data-messageid='" + MessageId + "' >"
+					+ fileBlock
+					+ "<div class='" + classList + "'>"
+					+ content
+					+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+					+ "</div> </div>";
+
+			}
 		} else {
+			if (isGroup?.toLowerCase() == "true") {
 
-			txt = "<div class='message-container" + (current_user_id == senderId ? " ms-self" : "") + "'>"
-				+ fileBlock
-				+ "<div class='" + classList + "'>"
-				+ content
-				+ "</div> </div>";
+				txt = "<div class='message-container' data-messageid='" + MessageId + "'>"
+					+ fileBlock
+					+ "<div class='" + classList + " group-msg'>"
+					+ "<div class=\'sender-name\' >"
+					+ senderName
+					+ "</div>"
+					+ content
+					+ "</div> </div>";
 
+			} else {
+
+				txt = "<div class='message-container' data-messageid='" + MessageId + "'>"
+					+ fileBlock
+					+ "<div class='" + classList + "'>"
+					+ content
+					+ "</div> </div>";
+
+			}
 		}
+		
 	
 
 		//console.log("message block: ",txt);
 
 		$('#message-box').append(txt);
 		$('#message-box').scrollTop($('#message-box')[0].scrollHeight);
+}
+function DeleteMessage(MessageId) {
+	$('#delete-message').val(MessageId).trigger('change');
 }
 
 $(function () {
@@ -77,6 +109,7 @@ $(function () {
 
 
 	$('#current-receiver').hide();
+
 	$('#current-receiver').change(function(){
 		
 		let selectedContact = GetSelectedContact();
@@ -84,6 +117,14 @@ $(function () {
 		//console.log("currentReceiver:", selectedContact.UserId, selectedContact.IsGroup);
 		privateChatHub.server.loadMessageOf(current_user_id, selectedContact.UserId, selectedContact.IsGroup);
 	})
+
+	$('#delete-message').hide();
+
+	$('#delete-message').change(function () {
+		let MessageId = $('#delete-message').val();
+		privateChatHub.server.deleteMessage(MessageId);
+	})
+
 
 	$('#inputFile').attr('title', '');
 
@@ -93,7 +134,7 @@ $(function () {
 		//console.log("getlist msg: ", lstMessages);
 		$('#message-box').empty();
 		lstMessages.forEach(e => {
-			addMessageToBoxChat(e.SenderId,e.SenderName,e.ReceiverId,(e.GroupId == "0" ? "false" : "true" ),e.Content,e.AttachmentName,e.AttachmentExtension,e.Attachment);
+			addMessageToBoxChat(e.Id,e.SenderId,e.SenderName,e.ReceiverId,(e.GroupId == "0" ? "false" : "true" ),e.Content,e.AttachmentName,e.AttachmentExtension,e.Attachment);
 		})
 	};
 
@@ -116,8 +157,7 @@ $(function () {
 
 	};
 
-
-	privateChatHub.client.showMessage = function (senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
+	privateChatHub.client.showMessage = function (MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
 
 		// There 2 case :
 		// sender = current user => select box to push by receiverId
@@ -141,14 +181,14 @@ $(function () {
 
 		if (isGroup == 'true') {
 			if (selectedContact.UserId == receiverId && selectedContact.IsGroup == 'true') {
-				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+				addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
 			} else {
 				// push notification
             }
 
 		} else {
 			if ((selectedContact.UserId == senderId || selectedContact.UserId == receiverId) && selectedContact.IsGroup == 'false') {
-				addMessageToBoxChat(senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+				addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
 			} else {
 				// push notification
             }
@@ -178,6 +218,18 @@ $(function () {
   //      }
 		
 	}
+
+
+	privateChatHub.client.removeMessage = function (MessageId) {
+		//console.log("remove mes: ", MessageId);
+		$('.message-container').toArray().forEach(
+			e => {
+				if (e.dataset.messageid == MessageId) {
+					$(e).remove();
+                }
+            }
+		)
+    }
 
 	privateChatHub.client.OnDisconnected = function () {
 		location.reload();

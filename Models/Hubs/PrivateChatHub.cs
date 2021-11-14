@@ -76,9 +76,10 @@ namespace SignalRChat.Models.Hubs
 
             if (bool.Parse(isGroup))
             {
-                Clients.Group(receiverId.ToString()).showMessage(senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                int InsertedId;
+                string msg;
 
-                MessageFunc.Add(new Message
+                (InsertedId, msg) = MessageFunc.Add(new Message
                 {
                     SenderId = senderId,
                     GroupId = receiverId,
@@ -87,19 +88,21 @@ namespace SignalRChat.Models.Hubs
                     AttachmentName = FileName,
                     AttachmentExtension = FileType
                 });
+
+                if(InsertedId > 0)
+                {
+                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                }
+
+
+
             }
             else
             {
-                if (dctConnectionId.ContainsKey(receiverId))
-                {
-                    // Người nhận đang online
-                    string receiverConnectionId = dctConnectionId[receiverId];
-                    Clients.Client(receiverConnectionId).showMessage(senderId, senderName , receiverId, isGroup, content, FileName, FileType, FileContent);
-                }
-
-                Clients.Caller.showMessage(senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
-
-                MessageFunc.Add(new Message
+                int InsertedId;
+                string msg;
+                
+                (InsertedId,msg) = MessageFunc.Add(new Message
                 {
                     SenderId = senderId,
                     ReceiverId = receiverId,
@@ -108,6 +111,19 @@ namespace SignalRChat.Models.Hubs
                     AttachmentName = FileName,
                     AttachmentExtension = FileType
                 });
+
+                if(InsertedId > 0)
+                {
+                    if (dctConnectionId.ContainsKey(receiverId))
+                    {
+                        // Người nhận đang online
+                        string receiverConnectionId = dctConnectionId[receiverId];
+                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                    }
+                    Clients.Caller.showMessage(InsertedId,senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                }
+
+
             }
 
             
@@ -115,6 +131,29 @@ namespace SignalRChat.Models.Hubs
 
         }
 
+        public void DeleteMessage(int MessageId)
+        {
+            var mes = MessageFunc.GetById(MessageId);
+            MessageFunc.DeleteMessage(MessageId);
+            if (mes == null) return;
+            if(mes.GroupId <= 0)
+            {
+                if (dctConnectionId.ContainsKey(mes.SenderId))
+                {
+                    Clients.Client(dctConnectionId[mes.SenderId]).removeMessage(MessageId);
+                }
+                if (dctConnectionId.ContainsKey(mes.ReceiverId))
+                {
+                    Clients.Client(dctConnectionId[mes.ReceiverId]).removeMessage(MessageId);
+                }
+            }
+            else
+            {
+                //
+                Clients.Group(mes.GroupId.ToString()).removeMessage(MessageId);
+            }
+            
+        }
         public override Task OnConnected()
         {
             return base.OnConnected();

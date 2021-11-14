@@ -15,6 +15,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
 
     <input id="current-receiver" type="text" value=""/>
+    <input id="delete-message" type="text" value=""/>
         
         <div id="chat-container">
 
