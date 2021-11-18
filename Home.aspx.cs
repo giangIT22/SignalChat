@@ -77,6 +77,18 @@ namespace SignalRChat
         {
             return ((UserViewDto)DataItem).UserId;
         }
+        public string GetUserAvatar64Str(object DataItem)
+        {
+            var bytes = ((UserViewDto)DataItem).Photo;
+            if(bytes.Length > 0)
+            {
+                return "data:image/png;base64," + Convert.ToBase64String(bytes);
+            }
+            else
+            {
+                return @".\Models\default_data\default-avatar.png";
+            }
+        }
 
         protected void ckbFriendsRequest_CheckedChanged(object sender, EventArgs e)
         {

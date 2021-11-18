@@ -119,6 +119,46 @@ namespace SignalRChat.Models.Data
 
             return result;
         }
+        
+        public static (bool,string) UpdateAvatar(int UserId, byte[] fileBytes)
+        {
+            string cmd = "exec UpdateAvatar @Id , @Photo";
+            int res = Conn.ExecuteScalar(cmd, new object[] { UserId, fileBytes });
+            if (res == 1)
+            {
+                return (true, "");
+            }
+            else
+            {
+                return (false, "Người dùng không tồn tại!");
+            }
+        }
+        public static (bool,string) UpdatePassword(string username, string oldPassword, string newPassword)
+        {
+            User user;
+            string msg = "";
+            (user, msg) = DangNhap(username, oldPassword);
+            if(user == null)
+            {
+                return (false, "Mật khẩu cũ không chính xác");
+            }
+            else
+            {
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+                string cmd = "exec UpdatePassword @Username , @Photo";
+                int res = Conn.ExecuteScalar(cmd, new object[] { username, hashedPassword });
+                if (res == 1)
+                {
+                    return (true, "");
+                }
+                else
+                {
+                    return (false, "Người dùng không tồn tại!");
+                }
+            }
+        }
+
     }
 
     

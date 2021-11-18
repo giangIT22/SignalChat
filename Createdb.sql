@@ -90,6 +90,51 @@ else
 
 go
 
+create PROCEDURE UpdateAvatar
+-- Trả về 
+--	Id == '0' : Không tồn tại người dùng
+--	Id == '1' : Cập nhật thành công
+--
+	@Id int, @Photo varbinary(max)
+AS
+if not exists (select top 1 * from AshChat.dbo.tblUser where Id = @Id)
+	begin
+		select 0;
+	end
+else
+	begin
+		Update AshChat.dbo.tblUser 
+		Set Photo = @Photo
+		where Id = @Id
+		select 1
+	end
+
+go
+
+alter PROCEDURE UpdatePassword
+-- Trả về 
+--	Id == '0' : Không tồn tại người dùng
+--	Id == '1' : Cập nhật thành công
+--
+	@Username varchar(30), @NewPassword nvarchar(200)
+AS
+if not exists (select top 1 * from AshChat.dbo.tblUser where Username = @Username)
+	begin
+		select 0;
+	end
+else
+	begin
+		Update AshChat.dbo.tblUser 
+		Set Password = @NewPassword
+		where Username = @Username
+		select 1
+	end
+
+go
+
+
+
+
 --	======================== MESSAGE ========================
 
 create PROCEDURE ThemMessage

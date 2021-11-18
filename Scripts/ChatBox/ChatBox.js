@@ -60,7 +60,7 @@ function addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGrou
 
 				txt = "<div class='message-container ms-self'  data-messageid='" + MessageId + "' >"
 					+ fileBlock
-					+ "<div class='" + classList + "'>"
+					+ `<div class="${classList}" id="delete-message" >`
 					+ content
 					+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
 					+ "</div> </div>";
@@ -82,9 +82,16 @@ function addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGrou
 
 				txt = "<div class='message-container' data-messageid='" + MessageId + "'>"
 					+ fileBlock
-					+ "<div class='" + classList + "'>"
-					+ content
-					+ "</div> </div>";
+					+ (content.trim().length == 0 ?
+						""
+						:
+						""
+						+ "<div class='" + classList + "'>"
+						+ content
+						+ "</div>"
+					)
+					+"</div>"
+					;
 
 			}
 		}

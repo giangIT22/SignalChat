@@ -20,11 +20,10 @@ namespace SignalRChat
             {
                 Response.Redirect("Home.aspx");
             }
-            
         }
 
         protected void btnLogin_ServerClick(object sender, EventArgs e)
-        {
+        {   
             string username = txtUsername.Text;
             string password = txtPassword.Text;
             User user = null;

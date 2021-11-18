@@ -16,32 +16,221 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-   
+   <style>
+       .d-flex{
+           display:flex;
+           justify-content:space-between;
+           align-items:center;
+       }
+
+       .logout{           
+           color:#555;
+           background: #e7e7e7;
+           padding: 15px;
+           text-decoration: none;
+       }
+
+       .logout:hover{
+           color:#333;
+       }
+       /* Navigation*/
+       #avatar img{
+           max-width:80px;
+           max-height:80px;
+       }
+
+       /*Modal */
+
+       #changingAvatar{
+           max-width:200px;
+       }
+
+   </style>
 </head>
 <body>
     <form id="form1" runat="server">
 
         <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Ash Chat</a>
-            </div>
-            <ul class="nav navbar-nav">
-              <li class="nav-option" data-page="Home"><a href="Home.aspx" >Trang chủ</a></li>
-              <li class="nav-option" data-page="ChatBox" ><a href="ChatBox.aspx" >Hộp thoại</a></li>
-            </ul >
+          <div class="container">
+            <header class="d-flex">
+                <div class="header-left">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Ash Chat</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-option" data-page="Home"><a href="Home.aspx">Trang chủ</a></li>
+                        <li class="nav-option" data-page="ChatBox" ><a href="ChatBox.aspx" >Hộp thoại</a></li>
+                    </ul >            
+                </div>
+                <div class="header-right">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-option" data-page="Home">
+                            <div id="avatar">
+                                <div class="dropdown">
+                                    <!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example 
+                                            <span class="caret"></span>
+                                        </button>-->
+
+                                    <asp:Image ID="currentUserAvatar" runat="server" 
+                                        class="btn btn-primary dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        alt="Alternate Text" />
+
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changeAvatarModal" >
+                                              Đổi ảnh đại diện
+                                          </a>
+                                      </li>
+                                        <li>
+                                          <a id="change_pass_link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" >
+                                              Đổi mật khẩu
+                                          </a>
+                                      </li>
+                                      <li><a href="/Logout.aspx" class="logout">Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            
+                        </li>
+
+                    </ul>
+                </div>
+            </header>
           </div>
         </nav>
+        
+        <!-- BEGIN: MODAL -->
+        <!-- Change avatar Modal  -->
+        <div class="modal fade" id="changeAvatarModal" tabindex="-1" role="dialog" aria-labelledby="changeAvatarModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="changeAvatarModalLabel">Đổi Avatar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <asp:Image ID="changingAvatar" runat="server" />
+                <label for="inputFile" id="inputFileLbl">
+                        <asp:FileUpload ID="fAvatar" runat="server" accept=".png,.jpg,.jpeg"/>
+                </label>
+                  
+              </div>
+              <div class="modal-footer">
+                <asp:Button ID="saveChangeAvatar" runat="server" Text="Cập nhật" class="btn btn-primary" OnClick="saveChangeAvatar_Click"/>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Change password Modal  -->
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <table>
+                      <tr>
+                          <td>
+                              Mật khẩu hiện tại
+                          </td>
+                          <td>
+                            <asp:TextBox ID="txtCurrentPassword" runat="server" TextMode="Password"></asp:TextBox>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              Mật khẩu mới
+                          </td>
+                          <td>
+                            <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password"></asp:TextBox>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              Nhập lại mật khẩu mới
+                          </td>
+                          <td>
+                            <asp:TextBox ID="txtReNewPassword" runat="server" TextMode="Password"></asp:TextBox>
+                          </td>
+                      </tr>
+                   </table>
+                  <asp:Label ID="lbErrorMessage" runat="server" Text=""></asp:Label>
+              </div>
+              <div class="modal-footer">
+                <asp:Button ID="btnChangePassword" runat="server" Text="Cập nhật" class="btn btn-primary" OnClick="btnChangePassword_Click"/>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              
+                
+            </div>
+          </div>
+        </div>
+
+        <!-- END: MODAL -->
+
+
+
         <div id="page-container">
         
             <asp:ContentPlaceHolder ID="Content" runat="server">
             </asp:ContentPlaceHolder>
 
         </div>
+
     </form>
 
 
 </body>
-<script src="Scripts/bootstrap.js"></script>
+   <script src="Scripts/bootstrap.js"></script>
+    
+    <script>
+        if ('<%=this.IsChangingPassword%>' == 'True') {
+            $('#change_pass_link').trigger('click');
+        }
+
+        
+        $('#fAvatar').change(function () {
+
+            //console.log("input file change");
+            var reader = new FileReader();
+            reader.onload = function () {
+
+                var binaryString = '';
+                let bytes = new Uint8Array(reader.result);
+                var len = bytes.byteLength;
+
+                for (var i = 0; i < len; i++) {
+                    binaryString += String.fromCharCode(bytes[i]);
+                }
+
+                //let input_file = $('#inputFile').prop('files')[0];
+
+                //gbl_file_variable = {
+                //    name: input_file.name,
+                //    content: btoa(binaryString),
+                //    type: input_file.type,
+                //}
+                //console.log("gbl_file_variable : ",gbl_file_variable)
+                //console.log("clientSize: ",gbl_file_variable.content.length);
+
+                // for loading image 
+                $('#changingAvatar').prop('src', "data:image/png;base64," + btoa(binaryString));
+                $('#changingAvatar').prop('ImageUrl', "data:image/png;base64," + btoa(binaryString));
+            }
+
+            reader.readAsArrayBuffer(this.files[0]);
+
+        });
+    </script>
 </html>
  

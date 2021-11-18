@@ -26,6 +26,7 @@ namespace SignalRChat.Models.Data
         public string Username { get; set; }
         public string Name { get; set; }
         public int State { get; set; }
+        public byte[] Photo { get; set; }
 
         public DateTime CreationTime { get; set; }
 
@@ -47,12 +48,14 @@ namespace SignalRChat.Models.Data
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var row = dt.Rows[i];
+                var tmp = row["Photo"].ToString();
                 result.Add(new UserViewDto
                 {
                     UserId = int.Parse(row["UserId"].ToString()),
                     Username = row["Username"].ToString(),
                     Name = row["Username"].ToString(),
                     State = int.Parse(row["State"].ToString()),
+                    Photo = String.IsNullOrEmpty(tmp) ? new byte[0] : (byte[])row["Photo"],
                     //CreationTime = DateTime.Parse(row["CreationTime"].ToString()),
                 });
             }
