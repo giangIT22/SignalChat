@@ -64,3 +64,37 @@ C:\Users\Admin\Desktop\tmp btl\SignalRChat\obj\Debug\SignalRChat.csproj.Assembly
 C:\Users\Admin\Desktop\tmp btl\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\tmp btl\SignalRChat\obj\Debug\SignalRChat.dll
 C:\Users\Admin\Desktop\tmp btl\SignalRChat\obj\Debug\SignalRChat.pdb
+E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.dll
+E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.pdb
+E:\ASP.net\SignalRChat\bin\SignalRChat.dll.config
+E:\ASP.net\SignalRChat\bin\SignalRChat.dll
+E:\ASP.net\SignalRChat\bin\SignalRChat.pdb
+E:\ASP.net\SignalRChat\bin\AjaxControlToolkit.dll
+E:\ASP.net\SignalRChat\bin\BCrypt.Net-Next.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.Owin.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\ASP.net\SignalRChat\bin\Microsoft.Owin.Security.dll
+E:\ASP.net\SignalRChat\bin\Newtonsoft.Json.dll
+E:\ASP.net\SignalRChat\bin\Owin.dll
+E:\ASP.net\SignalRChat\bin\System.Buffers.dll
+E:\ASP.net\SignalRChat\bin\System.Memory.dll
+E:\ASP.net\SignalRChat\bin\System.Numerics.Vectors.dll
+E:\ASP.net\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\ASP.net\SignalRChat\bin\System.ValueTuple.dll
+E:\ASP.net\SignalRChat\bin\BCrypt.Net-Next.xml
+E:\ASP.net\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\ASP.net\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\ASP.net\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\ASP.net\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\ASP.net\SignalRChat\bin\Microsoft.Owin.Security.xml
+E:\ASP.net\SignalRChat\bin\System.Buffers.xml
+E:\ASP.net\SignalRChat\bin\System.Memory.xml
+E:\ASP.net\SignalRChat\bin\System.Numerics.Vectors.xml
+E:\ASP.net\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\ASP.net\SignalRChat\bin\System.ValueTuple.xml
+E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
+E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+E:\ASP.net\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete

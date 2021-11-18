@@ -1,6 +1,38 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TopBar.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRChat.Home1" EnableEventValidation="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Styles/Home.css">
+    <style>
+        .search-color{
+            background:#0984e3;
+            border:1px solid #0984e3;
+            color:#Fff;
+            margin-right: 10px;
+            font-weight: normal !important;
+        }
+
+        .friend{
+            width:100%;
+            display:block !important;
+            margin-bottom:10px;
+        }
+
+        label{
+            font-weight: normal !important;
+        }
+
+        .fix-span{
+            margin-right:10px;
+            font-size:15px;
+        }
+
+        .triggerGroupModal{
+            background: #0984e3;
+            border: none;
+            padding: 3px 8px;
+            color:#fff;
+            border-radius: 2px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <div id="home-container">
@@ -15,10 +47,7 @@
                 <div id="user-filter-container">
 
                     <asp:TextBox ID="txtUserSearch" runat="server"></asp:TextBox>
-                    <asp:Button Text="Search" runat="server" ID="btnSearchUser" OnClick="btnSearchUser_Click" />
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                    </button>
+                    <asp:Button Text="Search" runat="server" ID="btnSearchUser" OnClick="btnSearchUser_Click" CssClass="search-color" />
 
                     <label class="checkbox-inline">
                         <asp:CheckBox ID="ckbFriendsRequest" runat="server" OnCheckedChanged="ckbFriendsRequest_CheckedChanged" AutoPostBack="True" /> Lời mời kết bạn
@@ -47,26 +76,26 @@
                                 <div class="user-btn">
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 0 )%>">
-                                        <asp:Button Type="button"  Text="Thêm bạn" ID="test" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AddFriendRequest" OnClick="UserBtnHandler" />
-                                        <asp:Button Type="button" Text="Chặn" ID="Button1" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
+                                        <asp:Button CssClass="friend" Type="button"  Text="Thêm bạn" ID="test" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AddFriendRequest" OnClick="UserBtnHandler" />
+                                        <asp:Button CssClass="friend" Type="button" Text="Chặn" ID="Button1" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
                                     </asp:PlaceHolder> 
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 1 )%>">
-                                        <asp:Button Type="button" Text="Hủy lời mời kết bạn" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="DeleteFriendRequest" OnClick="UserBtnHandler"/>
+                                        <asp:Button CssClass="friend" Type="button" Text="Hủy lời mời kết bạn" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="DeleteFriendRequest" OnClick="UserBtnHandler"/>
                                     </asp:PlaceHolder> 
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 2 )%>">
-                                        <asp:Button Type="button" Text="Chấp nhận" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AcceptFriendRequest" OnClick="UserBtnHandler"/>
-                                        <asp:Button Type="button" Text="Xóa" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="ReverseDeleteFriendRequest" OnClick="UserBtnHandler"/>
+                                        <asp:Button CssClass="friend" Type="button" Text="Chấp nhận" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="AcceptFriendRequest" OnClick="UserBtnHandler"/>
+                                        <asp:Button CssClass="friend" Type="button" Text="Xóa" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="ReverseDeleteFriendRequest" OnClick="UserBtnHandler"/>
                                     </asp:PlaceHolder>  
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) == 3 )%>">
-                                        <asp:Button Type="button" Text="Hủy kết bạn" ID="Button3" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnFriend" OnClick="UserBtnHandler" />
-                                        <asp:Button Type="button" Text="Chặn" ID="Button2" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
+                                        <asp:Button CssClass="friend" Type="button" Text="Hủy kết bạn" ID="Button3" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnFriend" OnClick="UserBtnHandler" />
+                                        <asp:Button CssClass="friend" Type="button" Text="Chặn" ID="Button2" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="BlockFriend" OnClick="UserBtnHandler" />
                                     </asp:PlaceHolder>  
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 4 )%>">
-                                        <asp:Button Type="button" Text="Bỏ chặn" ID="Button4" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnBlock" OnClick="UserBtnHandler" Enabled="True" />
+                                        <asp:Button CssClass="friend" Type="button" Text="Bỏ chặn" ID="Button4" runat="server" CommandArgument='<%#GetUserId(Container.DataItem)%>' CommandName="UnBlock" OnClick="UserBtnHandler" Enabled="True" />
                                     </asp:PlaceHolder>  
 
                                     <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem)  == 5 )%>">
@@ -87,29 +116,20 @@
                 
                 <div id="group-filter-container">
                         <asp:TextBox ID="txtGroupSearch" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnGroupSearch" runat="server" Text="Tìm kiếm" OnClick="btnGroupSearch_Click" />
+                        <asp:Button ID="btnGroupSearch" runat="server" Text="Tìm kiếm" OnClick="btnGroupSearch_Click" CssClass="search-color" />
 
-                        <label class="checkbox-inline">
-                            <asp:CheckBox ID="ckbJoinedGroup" runat="server" AutoPostBack="True" OnCheckedChanged="ckbJoinedGroup_CheckedChanged" Text="Đã tham gia" /> 
+                        <label class="checkbox-inline" CssClass="label">
+                            <asp:CheckBox ID="ckbJoinedGroup"  runat="server" AutoPostBack="True" OnCheckedChanged="ckbJoinedGroup_CheckedChanged" Text="Đã tham gia" /> 
                         </label>
-                        <label class="checkbox-inline">
-                            <asp:CheckBox ID="ckbGroupRequest" runat="server" AutoPostBack="True" OnCheckedChanged="ckbGroupRequest_CheckedChanged" Text="Đã gửi yêu cầu" /> 
+                        <label class="checkbox-inline" CssClass="label">
+                            <asp:CheckBox ID="ckbGroupRequest"  runat="server" AutoPostBack="True" OnCheckedChanged="ckbGroupRequest_CheckedChanged" Text="Đã gửi yêu cầu" /> 
                         </label>
                     
                 </div>
 
                 <div id="group-info-title">
-                    
-                    <div>
-                        <div >
-                            <asp:Label ID="lblExitDetailMode" runat="server" Text="Thêm mới"></asp:Label>
-                        </div>
-
-                        <asp:Button ID="btnExitDetailMode" runat="server" Text="+" OnClick="btnExitDetailMode_Click" class="triggerGroupModal"/>
-
-                    </div>
-
-                    
+                     <asp:Label ID="lblExitDetailMode" runat="server" Text="Thêm mới" CssClass="fix-span"></asp:Label>                
+                    <asp:Button ID="btnExitDetailMode" runat="server" Text="+" OnClick="btnExitDetailMode_Click" class="triggerGroupModal"/>
                 </div>
 
                 <div id="list-group" >
@@ -125,7 +145,7 @@
                                                 <%#Eval("Name")%>
                                             </div>
                                             <div>
-                                                <asp:Button class="btnDetail" Type="button"  Text="Chi tiết" ID="Button6" runat="server" 
+                                                <asp:Button Type="button"  Text="Chi tiết" ID="Button6" runat="server" CssClass="search-color" 
                                                     CommandArgument='<%#GetGroupId(Container.DataItem)%>' CommandName="DetailsOfGroup" OnClick="GroupBtnHandler" />
                                             </div>
                                         </div>
@@ -170,11 +190,11 @@
                             Danh sách thành viên
                         </a>
                             
-                        <div class="collapse" id="clsGroupMember">
+                        <div class="collapse" id="clsGroupMember" style="padding:10px;">
 
                             <asp:Repeater ID="rptGroupMembers" runat="server" ViewStateMode="Enabled">
                                 <ItemTemplate>
-                                    <div>
+                                    <div style="padding:0px 0px 10px 0;">
                                         <%#Eval("Username")%>
                                     </div>
                                     <div>
@@ -203,12 +223,12 @@
                             Danh sách chờ duyệt
                         </a>
                             
-                        <div class="collapse" id="clsGroupPendingMember">
+                        <div class="collapse" id="clsGroupPendingMember"  style="padding:10px;">
 
                             <asp:Repeater ID="rptGroupPendingMembers" runat="server" ViewStateMode="Enabled">
                                 <ItemTemplate>
                                     
-                                    <div>
+                                    <div style="padding:0px 0px 10px 0;"">
                                         <%#Eval("Username")%>
                                     </div>
                                     <div>
@@ -232,12 +252,12 @@
                             Danh sách đã chặn
                         </a>
                             
-                        <div class="collapse" id="clsGroupBannedMember">
+                        <div class="collapse" id="clsGroupBannedMember"  style="padding:10px;">
 
                             <asp:Repeater ID="rptGroupBannedMembers" runat="server" ViewStateMode="Enabled">
                                 <ItemTemplate>
                                     
-                                    <div>
+                                    <div style="padding:0px 0px 10px 0;">
                                         <%#Eval("Username")%>
                                     </div>
                                     <div>

@@ -119,6 +119,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Home.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="Scripts\ChatBox\ChatBox.js" />
     <Content Include="Content\emojionearea.min.css" />
     <Content Include="Content\style.css" />
@@ -216,6 +217,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\Messages2.cs" />
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\CommonTask.cs" />
     <Compile Include="Models\Conn.cs" />
     <Compile Include="Models\Data\AppConst.cs" />
