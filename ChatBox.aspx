@@ -10,7 +10,6 @@
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/style.css" rel="stylesheet" />
     <link href="Content/font-awesome.css" rel="stylesheet" />
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
 
@@ -21,13 +20,13 @@
 
             <div id="chat-box">
                 <div id="message-box">
-
+                    
                 </div>
                 <div id="function-bar">
-                    <textarea id="ChatTextArea" cols="20" rows="1" disabled></textarea>
+                    <textarea id="ChatTextArea" cols="20" rows="3" disabled></textarea>
 
                     <label for="inputFile" id="inputFileLbl">
-                        Upload
+                        <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
                          <input id='inputFile' type="file" value="" />
                     </label>
 

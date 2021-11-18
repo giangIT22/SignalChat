@@ -18,14 +18,14 @@ namespace SignalRChat
         }
         protected void btnRegister_ServerClick(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
+            string username = txtUsername.Text.ToString();
+            string password = txtPassword.Text.ToString();
             string repassword = txtRepassword.Text;
 
 
             if (username == "")
             {
-                errorMessage.InnerText = "Vui lòng nhập tên người dùng";
+                errorMessage.InnerText = "Vui lòng nhập tên đăng nhập";
                 return;
             } else if (password == "")
             {

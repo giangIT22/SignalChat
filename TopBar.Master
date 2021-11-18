@@ -16,20 +16,42 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-   
+   <style>
+       .d-flex{
+           display:flex;
+           justify-content:space-between;
+           align-items:center;
+       }
+
+       .logout{           
+           color:#555;
+           background: #e7e7e7;
+           padding: 15px;
+           text-decoration: none;
+       }
+
+       .logout:hover{
+           color:#333;
+       }
+   </style>
 </head>
 <body>
     <form id="form1" runat="server">
 
         <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Ash Chat</a>
-            </div>
-            <ul class="nav navbar-nav">
-              <li class="nav-option" data-page="Home"><a href="Home.aspx" >Trang chủ</a></li>
-              <li class="nav-option" data-page="ChatBox" ><a href="ChatBox.aspx" >Hộp thoại</a></li>
-            </ul >
+          <div class="container">
+            <header class="d-flex">
+                <div class="header-left">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Ash Chat</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-option" data-page="Home"><a href="Home.aspx">Trang chủ</a></li>
+                        <li class="nav-option" data-page="ChatBox" ><a href="ChatBox.aspx" >Hộp thoại</a></li>
+                    </ul >            
+                </div>
+                <a href="/Logout.aspx" class="logout">Đăng xuất</a>
+            </header>
           </div>
         </nav>
         <div id="page-container">
