@@ -68,53 +68,76 @@ label{
             margin:0 10px;
         }
 
+#message-box .message-row{
+	display: flex;
+	flex-direction:row;
+	width: 100%;
+    max-height:300px;
+}
+#message-box .ms-self{
+	justify-content: flex-end;
+}
 
-    #message-box .message-container {
+#message-box .message-row .message-container {
+    width: 42%;
+    max-height:300px;
+    display: flex;
+    flex-direction: row;
+    /*border: 2px solid red;*/
+}
+	#message-box .message-container .info-col{
+		display: flex;
+		flex-direction: column;
+		border:3px solid pink;
+		width: 50px;
+		max-height: 300px;
+	}
+	#message-box .message-container .info-col .sender-avatar img{
+		max-width: 50px;
+		height: 50px;
+	}
+
+
+    #message-box .message-content {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        /*border: 2px solid red;*/
-    }
-
-    #message-box .message-container div[class^="message"] {
-        width: 42%;
         background-color: #74b9ff;
         border-radius: 10px;
         color: white;
-        margin-bottom:10px;
-        min-height: 30px;
+        margin-bottom: 10px;
+        min-height: 40px;
         padding: 6px 10px;
     }
 
-    #message-box .message-container .msg-attachment {
-        width: 42%;
-        background-color: #74b9ff;
-        height: 200px;
-        max-width: 100%;
-        /*border: 2px solid green;*/
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        border-radius:10px;
+    #message-box .message-container .message-content {
+        overflow:hidden;
     }
 
-    #message-box .message-container .msg-attachment .message-img{
-        max-width:100%; 
-        max-height:100%;
-        display: block;
-    }
+#message-box .message-container .msg-attachment {
+    width: 100%;
+    background-color: #74b9ff;
+    height: 200px;
+    max-width: 100%;
+    /*border: 2px solid green;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius:10px;
+}
+
+#message-box .message-container .msg-attachment .message-img{
+    max-width:100%; 
+    max-height:100%;
+    display: block;
+}
 
 
 
-    #message-box .ms-self  {
-        align-items: flex-end;
-    }
+
 
 
 
 #contact_list {
-    back
     overflow-y: auto !important;
     width: 25%;
     height: 100%;
