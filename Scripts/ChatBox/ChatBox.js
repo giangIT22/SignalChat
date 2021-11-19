@@ -20,10 +20,11 @@ function GetMessageContent() {
 	return e = $('#ChatTextArea').val();
 }
 
-function addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
-		console.log("AddMessageToBoxChat!!!!! ", fileName);
+function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, receiverId, isGroup, content, fileName, fileType, fileContent, creationTime) {
+	console.log("AddMessageToBoxChat!!!!! " + fileName + "----" + content);
+	console.log("AddMessageToBoxChat creationTime", creationTime);
+	
 		//console.log("fileContent: ", fileContent.length)
-		let classList = "message-content";
 
 		let fileBlock = '';
 		if(fileName!=''){
@@ -40,66 +41,152 @@ function addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGrou
 			fileBlock = "<div class='msg-attachment'>" + fileBlock + "</div>"
 		}
 
+
+	let avatar_img_tag = senderAvatar.trim().length == 0 ? "<img src='.\\Models\\default_data\\default-avatar.png' >"  : "<img src='data: image/png;base64," + senderAvatar + "' >";
+
 		let txt = "";
 		//console.log("isgroup: ", isGroup);
 
 		if (current_user_id == senderId) {
 			if (isGroup?.toLowerCase() == "true") {
 
-				txt = "<div class='message-container ms-self' data-messageid='" + MessageId + "' >"
-					+ fileBlock
-					+ "<div class='" + classList + " group-msg'>"
-					+ "<div class=\'sender-name\' >"
-					+ senderName
+				txt =
+					"<div class='message-row  ms-self'>"
+					+"<div class='message-container' data-messageid='" + MessageId + "' >"
+
+						//+ "<div class='info-col'>"
+						//+ "</div>"
+
+					+ "<div class='message-content'>"
+
+							+ "<div class=\'sender-name\' >"
+							+ senderName
+							+ "</div>"
+
+							+ "<div class='text-content'>"
+							+ content
+							+ "</div> "
+
+							+ fileBlock
+							+ "<div class='message-footer'>"
+							+ "<span class='sending-time'>" + creationTime + "</span>"
+							+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+							+ "</div>"
+
+
+						+ "</div>"
+
+						
+						
 					+ "</div>"
-					+ content
-					+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
-					+ "</div> </div>";
+					+ "</div>";
 
 			} else {
 
-				txt = "<div class='message-container ms-self'  data-messageid='" + MessageId + "' >"
-					+ fileBlock
-					+ `<div class="${classList}" id="delete-message" >`
-					+ content
-					+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
-					+ "</div> </div>";
+				txt =
+					"<div class='message-row  ms-self'>"
+					+ "<div class='message-container ms-self' data-messageid='" + MessageId + "' >"
+
+					//+ "<div class='info-col'>"
+					//+ "</div>"
+
+					+ "<div class='message-content'>"
+						+ "<div class=\'sender-name\' >"
+						+ senderName
+						+ "</div>"
+
+						+ "<div class='text-content'>"
+						+ content
+						+ "</div> "
+
+						+ fileBlock
+
+						+ "<div class='message-footer'>"
+							+ "<span class='sending-time'>" + creationTime + "</span>"
+							+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+						+ "</div>"
+						
+					+ "</div>"
+					
+
+					+ "</div>"
+					+ "</div>";
 
 			}
 		} else {
 			if (isGroup?.toLowerCase() == "true") {
 
-				txt = "<div class='message-container' data-messageid='" + MessageId + "'>"
-					+ fileBlock
-					+ "<div class='" + classList + " group-msg'>"
-					+ "<div class=\'sender-name\' >"
-					+ senderName
-					+ "</div>"
-					+ content
-					+ "</div> </div>";
+
+				txt =
+					"<div class='message-row'>"
+						+"<div class='message-container' data-messageid='" + MessageId + "' >"
+
+						+ "<div class='info-col'>"
+							+ "<div class='sender-avatar'>"
+							+ avatar_img_tag
+							+ "</div>"
+						+ "</div>"
+
+						+ "<div class='message-content'>"
+						+ "<div class=\'sender-name\' >"
+						+ senderName
+						+ "</div>"
+
+						+ "<div class='text-content'>"
+						+ content
+						+ "</div> "
+
+						+ fileBlock
+
+
+						+ "<div class='message-footer'>"
+							+ "<span class='sending-time'>" + creationTime + "</span>"
+							//+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+						+ "</div>"
+						+ "</div>"
+
+
+						+ "</div>"
+					+ "</div>";
 
 			} else {
 
-				txt = "<div class='message-container' data-messageid='" + MessageId + "'>"
-					+ fileBlock
-					+ (content.trim().length == 0 ?
-						""
-						:
-						""
-						+ "<div class='" + classList + "'>"
-						+ content
+				txt =
+					"<div class='message-row'>"
+						+ "<div class='message-container' data-messageid='" + MessageId + "' >"
+
+						+ "<div class='info-col'>"
+						+ "<div class='sender-avatar'>"
+						+ avatar_img_tag
 						+ "</div>"
-					)
-					+"</div>"
-					;
+						+ "</div>"
+
+						+ "<div class='message-content'>"
+						+ "<div class=\'sender-name\' >"
+						+ senderName
+						+ "</div>"
+
+						+ "<div class='text-content'>"
+						+ content
+						+ "</div> "
+
+						+ fileBlock
+
+
+						+ "<div class='message-footer'>"
+						+ "<span class='sending-time'>" + creationTime + "</span>"
+						//+ "<a class='delete-message' onclick='DeleteMessage(\"" + MessageId + "\")' href=\"#\" > Xóa </a>"
+						+ "</div>"
+						+ "</div>"
+
+						+"</div>"
+
+					+ "</div>";
 
 			}
 		}
 		
 	
-
-		//console.log("message block: ",txt);
-
 		$('#message-box').append(txt);
 		$('#message-box').scrollTop($('#message-box')[0].scrollHeight);
 }
@@ -138,10 +225,10 @@ $(function () {
 	// Khởi tạo trang khi 
 	privateChatHub.client.showListMessage = function (lstMessages) {
 		// Html encode display name and message.
-		//console.log("getlist msg: ", lstMessages);
+		console.log("getlist msg: ", lstMessages);
 		$('#message-box').empty();
 		lstMessages.forEach(e => {
-			addMessageToBoxChat(e.Id,e.SenderId,e.SenderName,e.ReceiverId,(e.GroupId == "0" ? "false" : "true" ),e.Content,e.AttachmentName,e.AttachmentExtension,e.Attachment);
+			addMessageToBoxChat(e.Id, e.SenderId, e.SenderPhoto, e.SenderName, e.ReceiverId, (e.GroupId == "0" ? "false" : "true"), e.Content, e.AttachmentName, e.AttachmentExtension, e.Attachment, e.StrCreationTime);
 		})
 	};
 
@@ -164,7 +251,7 @@ $(function () {
 
 	};
 
-	privateChatHub.client.showMessage = function (MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent) {
+	privateChatHub.client.showMessage = function (MessageId, senderId, senderAvatar, senderName, receiverId, isGroup, content, fileName, fileType, fileContent, creationTime) {
 
 		// There 2 case :
 		// sender = current user => select box to push by receiverId
@@ -188,14 +275,14 @@ $(function () {
 
 		if (isGroup == 'true') {
 			if (selectedContact.UserId == receiverId && selectedContact.IsGroup == 'true') {
-				addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+				addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, receiverId, isGroup, content, fileName, fileType, fileContent, creationTime);
 			} else {
 				// push notification
             }
 
 		} else {
 			if ((selectedContact.UserId == senderId || selectedContact.UserId == receiverId) && selectedContact.IsGroup == 'false') {
-				addMessageToBoxChat(MessageId, senderId, senderName, receiverId, isGroup, content, fileName, fileType, fileContent);
+				addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, receiverId, isGroup, content, fileName, fileType, fileContent, creationTime);
 			} else {
 				// push notification
             }
@@ -263,7 +350,7 @@ $(function () {
 
 
 	$.connection.hub.start().done(function () {
-		privateChatHub.server.connect(current_user_id);
+		privateChatHub.server.connect(current_user_id, current_user_avatar);
 		privateChatHub.server.getContactsList(current_user_id);
 	});
 

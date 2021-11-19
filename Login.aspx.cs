@@ -26,6 +26,7 @@ namespace SignalRChat
         {   
             string username = txtUsername.Text;
             string password = txtPassword.Text;
+
             User user = null;
             string message = "";
             (user, message) = UserFunc.DangNhap(username, password);
@@ -33,7 +34,6 @@ namespace SignalRChat
             if (user != null)
             {
                 Session[AppConst.SessionCurrentUserKey] = user;
-                
                 Response.Redirect("Home.aspx");
             }
             else

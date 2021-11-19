@@ -14,8 +14,14 @@ namespace SignalRChat
     {
 
         public User currentUser;
+        public string strAvatarx64 = ""; 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.AppendHeader("Pragma", "no-cache");
+            Response.Expires = -1;
+            Response.Cache.SetNoStore();
+
             currentUser = new User();
             var user = (User)Session[AppConst.SessionCurrentUserKey];
             if(user == null)
@@ -24,11 +30,12 @@ namespace SignalRChat
                 
             }
             currentUser = user;
+            strAvatarx64 = Convert.ToBase64String(user.Photo);
         }
-
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
+
         }
     }
     

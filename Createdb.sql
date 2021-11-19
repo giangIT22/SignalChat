@@ -111,7 +111,7 @@ else
 
 go
 
-alter PROCEDURE UpdatePassword
+create PROCEDURE UpdatePassword
 -- Trả về 
 --	Id == '0' : Không tồn tại người dùng
 --	Id == '1' : Cập nhật thành công
@@ -168,7 +168,7 @@ go
 create PROCEDURE GetUser_User
 	@UserId int
 AS
-	select Id as UserId, tblUser.UserName, tblUser.Name, Case when X.State is null then 0 else X.State end as State, X.CreationTime
+	select Id as UserId, tblUser.UserName, tblUser.Name, tblUser.Photo, Case when X.State is null then 0 else X.State end as State, X.CreationTime
 	from tblUser
 	left join (select UserIdB,State,CreationTime from tblUser_User where tblUser_User.UserIdA = @UserId) as x 
 		on tblUser.Id = x.UserIdB
@@ -620,7 +620,7 @@ as
 	tblMessage.Id, tblMessage.SenderId, tblMessage.ReceiverId, tblMessage.Attachment, 
 	tblMessage.AttachmentName, tblMessage.AttachmentExtension, tblMessage.Content,
 	tblMessage.LastEditTime, tblMessage.CreationTime, tblMessage.GroupId,
-	tblUser.Username as SenderUsername, tblUser.Name as SenderName
+	tblUser.Username as SenderUsername, tblUser.Name as SenderName,tblUser.Photo
 	from tblMessage
 	join tblUser on tblMessage.SenderId = tblUser.Id
 	where SenderId = @SenderId and ReceiverId = @ReceiverId
@@ -633,7 +633,7 @@ as
 	tblMessage.Id, tblMessage.SenderId, tblMessage.ReceiverId, tblMessage.Attachment, 
 	tblMessage.AttachmentName, tblMessage.AttachmentExtension, tblMessage.Content,
 	tblMessage.LastEditTime, tblMessage.CreationTime,tblMessage.GroupId,
-	tblUser.Username as SenderUsername, tblUser.Name as SenderName
+	tblUser.Username as SenderUsername, tblUser.Name as SenderName, tblUser.Photo
 	from tblMessage
 	join tblUser on tblMessage.SenderId = tblUser.Id
 	where GroupId = @GroupId

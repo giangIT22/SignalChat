@@ -14,6 +14,8 @@ namespace SignalRChat.Models.Data
         public int ReceiverId { get; set; }
         public int GroupId { get; set; }
 
+        public string SenderPhoto { get; set; }
+
         public string Attachment { get; set; }
         public string AttachmentName { get; set; }
         public string AttachmentExtension { get; set; }
@@ -21,6 +23,13 @@ namespace SignalRChat.Models.Data
         public string Content { get; set; }
         public DateTime LastEditTime { get; set; }
         public DateTime CreationTime { get; set; }
+        public string StrCreationTime
+        {
+            get
+            {
+                return CreationTime.ToString("dd/MM/yyyy HH:mm");
+            }
+        }
     }
     public class CONTENT_TYPE
     {
@@ -70,6 +79,7 @@ namespace SignalRChat.Models.Data
             {
                 var row = dt.Rows[i];
                 var tmp = row["Attachment"].ToString();
+                var photo = row["Photo"].ToString();
                 result.Add(new Message
                 {
                     Id = int.Parse(row["Id"].ToString()),
@@ -79,6 +89,7 @@ namespace SignalRChat.Models.Data
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
                     Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
+                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Convert.ToBase64String((byte[])row["Photo"]),
                     AttachmentName = row["AttachmentName"].ToString(),
                     AttachmentExtension = row["AttachmentExtension"].ToString(),
                     LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),
@@ -124,6 +135,7 @@ namespace SignalRChat.Models.Data
             {
                 var row = dt.Rows[i];
                 var tmp = row["Attachment"].ToString();
+                var photo = row["Photo"].ToString();
                 result.Add(new Message
                 {
                     Id = int.Parse(row["Id"].ToString()),
@@ -133,6 +145,7 @@ namespace SignalRChat.Models.Data
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
                     Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
+                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Convert.ToBase64String((byte[])row["Photo"]),
                     AttachmentName = row["AttachmentName"].ToString(),
                     AttachmentExtension = row["AttachmentExtension"].ToString(),
                     LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),

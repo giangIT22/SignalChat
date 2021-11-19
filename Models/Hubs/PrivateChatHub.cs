@@ -13,10 +13,10 @@ namespace SignalRChat.Models.Hubs
         // Duy trì IdConnection - 
         private static Dictionary<int, string> dctConnectionId = new Dictionary<int, string>();
         private static Dictionary<string, int> dctUserId = new Dictionary<string, int>();
-
+        private static Dictionary<int, string> dctAvatar = new Dictionary<int, string>();
         // Group
 
-        public void Connect(int UserId)
+        public void Connect(int UserId, string strUserPhotox64)
         {
             dctConnectionId[UserId] = Context.ConnectionId;
             dctUserId[Context.ConnectionId] = UserId;
@@ -71,8 +71,14 @@ namespace SignalRChat.Models.Hubs
 
         public void SendPrivateMessage(int senderId, string senderName, int receiverId, string isGroup, string content, string FileName, string FileType, string FileContent)
         {
-            var szContent = FileContent.Length;
 
+            string senderPhoto = "";
+            if (dctAvatar.ContainsKey(senderId))
+            {
+                senderPhoto = dctAvatar[senderId];
+            }
+
+            string Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 
             if (bool.Parse(isGroup))
             {
@@ -91,11 +97,8 @@ namespace SignalRChat.Models.Hubs
 
                 if(InsertedId > 0)
                 {
-                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderPhoto , senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
                 }
-
-
-
             }
             else
             {
@@ -118,17 +121,11 @@ namespace SignalRChat.Models.Hubs
                     {
                         // Người nhận đang online
                         string receiverConnectionId = dctConnectionId[receiverId];
-                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderPhoto, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
                     }
-                    Clients.Caller.showMessage(InsertedId,senderId, senderName, receiverId, isGroup, content, FileName, FileType, FileContent);
+                    Clients.Caller.showMessage(InsertedId, senderId, senderPhoto, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
                 }
-
-
             }
-
-            
-
-
         }
 
         public void DeleteMessage(int MessageId)
@@ -176,6 +173,15 @@ namespace SignalRChat.Models.Hubs
             }
 
             Clients.Caller.OnDisconnected();
+
+            // begin: for testing
+            int DisconnectingUserId;
+            if (dctUserId.ContainsKey(currentId))
+            {
+                DisconnectingUserId = dctUserId[currentId];
+            }
+            // end: for testing
+
             return base.OnDisconnected(stopCalled);
         }
         

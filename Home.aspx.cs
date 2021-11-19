@@ -16,6 +16,10 @@ namespace SignalRChat
         public string currentTab = "user";
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.AppendHeader("Pragma", "no-cache");
+            Response.Expires = -1;
+            Response.Cache.SetNoStore();
 
             if (!IsPostBack) {
                 currentUser = new User();
