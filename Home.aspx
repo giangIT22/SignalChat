@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TopBar.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="SignalRChat.Home1" EnableEventValidation="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="Styles/Home.css">
+
     <style>
         .search-color{
             background:#0984e3;
@@ -33,7 +34,10 @@
             border-radius: 2px;
         }
         .user-avatar img{
-            max-height:80px;
+            max-height:70px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border-radius:50%;
         }
     </style>
 </asp:Content>
@@ -71,12 +75,11 @@
                         <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) != 5 )%>">
 
                             <div class="user-box">
-
-                                <div class="user-name">
-                                    <%#Eval("Name")%>
-                                </div>
                                 <div class="user-avatar">
                                     <img src="<%#GetUserAvatar64Str(Container.DataItem)%>" />
+                                </div>
+                                <div class="user-name">
+                                    <%#Eval("Name")%>
                                 </div>
 
                                 <div class="user-btn">
@@ -214,7 +217,7 @@
                                         </asp:PlaceHolder>
 
                                         <asp:PlaceHolder runat="server" Visible="<%#( UTG_GetUserState(Container.DataItem) == 1 )%>">
-                                             <button disabled>Owner</button>
+                                             <button disabled style="margin-bottom: 10px">Owner</button>
                                         </asp:PlaceHolder>
 
 

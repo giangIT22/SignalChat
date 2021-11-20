@@ -6,6 +6,7 @@
 <head runat="server">
         <title>SignalR Chat : Login</title>
         <link rel="stylesheet" href="Styles/Login.css"  />
+
 </head>
 <body >
     <div class="login">

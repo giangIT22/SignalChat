@@ -602,10 +602,10 @@ a:focus {
     right: 40px;
   }
 }
-/*
+
  * Component: Sidebar
  * ------------------
- */
+ 
 .main-sidebar,
 .left-side {
   position: absolute;
@@ -770,9 +770,9 @@ a:focus {
 .sidebar-menu .treeview-menu > li > a > .fa-angle-down {
   width: auto;
 }
-/*
+
  * Component: Sidebar Mini
- */
+ 
 @media (min-width: 768px) {
   .sidebar-mini.sidebar-collapse .content-wrapper,
   .sidebar-mini.sidebar-collapse .right-side,
@@ -870,9 +870,9 @@ a:focus {
   right: 10px;
   margin-top: -7px;
 }
-/*
+
  * Component: Control sidebar. By default, this is the right sidebar.
- */
+ 
 .control-sidebar-bg {
   position: fixed;
   z-index: 1000;
@@ -1706,10 +1706,10 @@ a:focus {
     font-size: 12px;
   }
 }
-/*
+
  * Component: Box
  * --------------
- */
+ 
 .box {
   position: relative;
   border-radius: 3px;
@@ -2420,13 +2420,14 @@ a:focus {
   background-color: #e7e7e7;
 }
 .btn-primary {
-  background-color: #3c8dbc;
-  border-color: #367fa9;
+    /* background-color: #3c8dbc; */
+    border-color: #e4e3e3;
+    background-color: #ecebeb;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary.hover {
-  background-color: #367fa9;
+  background-color: gray;
 }
 .btn-success {
   background-color: #00a65a;
@@ -3467,8 +3468,8 @@ table.text-center th {
     text-align: center;
   }
 }
-/*
- * Page: Invoice
+
+ /** Page: Invoice
  * -------------
  */
 .invoice {

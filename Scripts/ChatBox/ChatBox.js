@@ -59,9 +59,9 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 
 					+ "<div class='message-content'>"
 
-							+ "<div class=\'sender-name\' >"
-							+ senderName
-							+ "</div>"
+							//+ "<div class=\'sender-name\' >"
+							//+ senderName + " : "
+							//+ "</div>"
 
 							+ "<div class='text-content'>"
 							+ content
@@ -91,9 +91,9 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 					//+ "</div>"
 
 					+ "<div class='message-content'>"
-						+ "<div class=\'sender-name\' >"
-						+ senderName
-						+ "</div>"
+						//+ "<div class=\'sender-name\' >"
+						//+ senderName + " : "
+						//+ "</div>"
 
 						+ "<div class='text-content'>"
 						+ content
@@ -129,7 +129,7 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 
 						+ "<div class='message-content'>"
 						+ "<div class=\'sender-name\' >"
-						+ senderName
+						+ senderName + " : "
 						+ "</div>"
 
 						+ "<div class='text-content'>"
@@ -163,7 +163,7 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 
 						+ "<div class='message-content'>"
 						+ "<div class=\'sender-name\' >"
-						+ senderName
+						+ senderName + " : "
 						+ "</div>"
 
 						+ "<div class='text-content'>"

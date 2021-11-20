@@ -7,8 +7,10 @@
     <script src="signalr/hubs"></script>
     <link rel="stylesheet" href="Styles/ChatBox.css">
 
+    
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/style.css" rel="stylesheet" />
+
     <link href="Content/font-awesome.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">

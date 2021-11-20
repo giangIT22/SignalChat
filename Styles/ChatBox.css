@@ -14,10 +14,10 @@ label{
     box-shadow: 0 20px 90px rgba(58, 46, 68, 0.1);
     border: 0.5px solid gainsboro;
     border-radius: 10px;
-    width: 850px;
+    width: 70%;
     display: flex;
     margin: 20px auto 0;
-    height: 520px;
+    height: 80%;
 }
 
 #chat-box {
@@ -85,28 +85,30 @@ label{
     flex-direction: row;
     /*border: 2px solid red;*/
 }
-	#message-box .message-container .info-col{
-		display: flex;
-		flex-direction: column;
-		border:3px solid pink;
-		width: 50px;
-		max-height: 300px;
-	}
-	#message-box .message-container .info-col .sender-avatar img{
-		max-width: 50px;
-		height: 50px;
-	}
-
-
-    #message-box .message-content {
-        width: 100%;
-        background-color: #74b9ff;
-        border-radius: 10px;
-        color: white;
-        margin-bottom: 10px;
-        min-height: 40px;
-        padding: 6px 10px;
+    #message-box .message-container .info-col {
+        display: flex;
+        flex-direction: column;
+        /*border:3px solid pink;*/
+        width: 50px;
+        max-height: 300px;
+        margin-right: 5px;
     }
+        #message-box .message-container .info-col .sender-avatar img {
+            max-width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+
+
+#message-box .message-content {
+    width: 100%;
+    background-color: #f2f3f4;
+    border-radius: 10px;
+    color:  ;
+    margin-bottom: 10px;
+    min-height: 40px;
+    padding: 6px 10px;
+}
 
     #message-box .message-container .message-content {
         overflow:hidden;
@@ -114,7 +116,7 @@ label{
 
 #message-box .message-container .msg-attachment {
     width: 100%;
-    background-color: #74b9ff;
+    background-color: #f2f3f4;
     height: 200px;
     max-width: 100%;
     /*border: 2px solid green;*/
@@ -122,7 +124,7 @@ label{
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 #message-box .message-container .msg-attachment .message-img{
@@ -164,3 +166,5 @@ label{
         width: 100%;
         color:#fff !important;
     }
+
+

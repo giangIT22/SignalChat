@@ -35,14 +35,22 @@
        }
        /* Navigation*/
        #avatar img{
-           max-width:80px;
-           max-height:80px;
+           max-width:60px;
+           max-height:60px;
+           border-radius: 50%;
+           background-color : #f2f3f4;
+           /*border: 1px solid #dadada;*/
        }
 
        /*Modal */
 
        #changingAvatar{
            max-width:200px;
+       }
+       .dd-btn{
+           font-size: 14px;
+           padding : 10px 10px;
+           background : white;
        }
 
    </style>
@@ -72,30 +80,33 @@
                                         </button>-->
 
                                     <asp:Image ID="currentUserAvatar" runat="server" 
-                                        class="btn btn-primary dropdown-toggle"
+                                        class="dropdown-btn dropdown-toggle"
                                         data-toggle="dropdown"
                                         alt="Alternate Text" />
 
                                     <ul class="dropdown-menu">
                                       <li>
-                                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changeAvatarModal" >
+                                          <a href="#" class="dd-btn" data-toggle="modal" data-target="#changeAvatarModal" >
                                               Đổi ảnh đại diện
                                           </a>
                                       </li>
                                         <li>
-                                          <a id="change_pass_link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" >
+                                          <a id="change_pass_link" href="#" class="dd-btn" data-toggle="modal" data-target="#changePasswordModal" >
                                               Đổi mật khẩu
                                           </a>
                                       </li>
-                                      <li><a href="/Logout.aspx" class="logout">Đăng xuất</a></li>
+                                      <li><a href="/Logout.aspx" class="logout dd-btn ">Đăng xuất</a></li>
                                     </ul>
+                                    
                                 </div>
                             </div>
+                            
 
                             
                         </li>
 
                     </ul>
+                    
                 </div>
             </header>
           </div>
