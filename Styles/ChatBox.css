@@ -6,6 +6,16 @@
 label{
     margin-bottom:0 !important;
 }
+.show-list{
+    right: 0 !important;
+    top: 10%;
+    width: 100% !important;
+    background: #fff;
+}
+
+.hide-bar{
+    display: none !important;
+}
 #page-container{
     display:block !important;
 }
@@ -166,3 +176,44 @@ label{
         width: 100%;
         color:#fff !important;
     }
+
+.show-contact{
+    display:none !important;
+}
+
+
+@media screen and (max-width:767px) {
+    #chat-container {
+        max-width: 80% !important;
+    }
+
+        #chat-container #chat-box {
+            width: 100%;
+        }
+
+        #chat-container #contact_list {
+            position: fixed;
+            right: -100%;
+        }
+
+    .show-contact {
+        display:block !important;
+        position: fixed;
+        right: 0;
+        background: #fff;
+        font-size: 22px;
+        padding: 0 10px;
+        border-left: 1px solid #0984e3;
+        border-top: 1px solid #0984e3;
+        border-bottom: 1px solid #0984e3;
+        border-radius: 10px 0 0 10px;
+        color: #74b9ff;
+        cursor: pointer;
+    }
+
+        .show-contact:hover {
+            background: #0984e3;
+            color: #fff;
+
+        }
+}

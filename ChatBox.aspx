@@ -2,7 +2,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>SignalR Chat : Login</title>
+    <title>Ash Chat</title>
 
     <script src="signalr/hubs"></script>
     <link rel="stylesheet" href="Styles/ChatBox.css">
@@ -38,6 +38,9 @@
                 
             </div>
 
+            <div class="show-contact">
+                <span><i class="fa fa-bars" aria-hidden="true"></i></span>
+            </div>
         </div>
         
     
@@ -76,6 +79,10 @@
             type: '',
         };
         let gbl_file_variable = DEFAULT_FILE_VALUE;// lưu dữ liệu file đang chọn
+
+        document.querySelector('.show-contact').onclick = function () {
+            document.querySelector('#contact_list').classList.toggle('show-list');
+        };
     </script>
  
 </asp:Content>

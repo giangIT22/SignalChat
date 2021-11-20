@@ -92,9 +92,9 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 					//+ "</div>"
 
 					+ "<div class='message-content'>"
-						+ "<div class=\'sender-name\' >"
-						+ senderName
-						+ "</div>"
+						//+ "<div class=\'sender-name\' >"
+						//+ senderName
+						//+ "</div>"
 
 						+ "<div class='text-content'>"
 						+ content
@@ -379,6 +379,8 @@ function SelectContact(UserId,IsGroup) {
 	contactsBoxArr.forEach(e => {
 		if (e.dataset.userid == UserId && e.dataset.isgroup == IsGroup) {
 			e.classList = ['contact-box-selected'];
+			document.querySelector('#contact_list').classList.remove('show-list');
+			document.querySelector('.show-contact').style.display = "block";
 		} else {
 			e.classList = ['contact-box'];
 		}
