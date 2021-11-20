@@ -42,6 +42,7 @@ namespace SignalRChat.Models.Data
 
         public static (int, string) Add(Message message)
         {
+
             string cmd = "exec ThemMessage @SenderId , @ReceiverId , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
 
             int InsertedId = Conn.ExecuteScalar(cmd, 

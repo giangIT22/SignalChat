@@ -71,7 +71,7 @@ namespace SignalRChat.Models.Hubs
 
         public void SendPrivateMessage(int senderId, string senderName, int receiverId, string isGroup, string content, string FileName, string FileType, string FileContent)
         {
-
+            
             string senderPhoto = "";
             if (dctAvatar.ContainsKey(senderId))
             {
@@ -85,33 +85,37 @@ namespace SignalRChat.Models.Hubs
                 int InsertedId;
                 string msg;
 
+                string path = ImageFunc.SaveMessageImage(FileName, FileType, FileContent);
+
                 (InsertedId, msg) = MessageFunc.Add(new Message
                 {
                     SenderId = senderId,
                     GroupId = receiverId,
                     Content = content,
                     Attachment = FileContent,
-                    AttachmentName = FileName,
+                    AttachmentName = path,
                     AttachmentExtension = FileType
                 });
 
                 if(InsertedId > 0)
                 {
-                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderPhoto , senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
+                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderPhoto , senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                 }
             }
             else
             {
                 int InsertedId;
                 string msg;
-                
+
+                string path = ImageFunc.SaveMessageImage(FileName, FileType, FileContent);
+
                 (InsertedId,msg) = MessageFunc.Add(new Message
                 {
                     SenderId = senderId,
                     ReceiverId = receiverId,
                     Content = content,
                     Attachment = FileContent,
-                    AttachmentName = FileName,
+                    AttachmentName = path,
                     AttachmentExtension = FileType
                 });
 
@@ -121,9 +125,9 @@ namespace SignalRChat.Models.Hubs
                     {
                         // Người nhận đang online
                         string receiverConnectionId = dctConnectionId[receiverId];
-                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderPhoto, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
+                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderPhoto, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                     }
-                    Clients.Caller.showMessage(InsertedId, senderId, senderPhoto, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
+                    Clients.Caller.showMessage(InsertedId, senderId, senderPhoto, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                 }
             }
         }
@@ -131,6 +135,9 @@ namespace SignalRChat.Models.Hubs
         public void DeleteMessage(int MessageId)
         {
             var mes = MessageFunc.GetById(MessageId);
+
+            ImageFunc.RemoveMessageImage(mes.AttachmentName);
+
             MessageFunc.DeleteMessage(MessageId);
             if (mes == null) return;
             if(mes.GroupId <= 0)

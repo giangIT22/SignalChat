@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,11 +29,12 @@ namespace SignalRChat
                 }
                 else
                 {
-                    String strFileBase64 = Convert.ToBase64String(user.Photo);
-                    changingAvatar.ImageUrl = "data:image/png;base64," + strFileBase64;
+                    String FileName = Encoding.UTF8.GetString(user.Photo);
+                    changingAvatar.ImageUrl = "./Uploads/Avatar/" + FileName;
                     changingAvatar.DataBind();
-                    currentUserAvatar.ImageUrl = "data:image/png;base64," + strFileBase64;
+                    currentUserAvatar.ImageUrl = "./Uploads/Avatar/" + FileName;
                     currentUserAvatar.DataBind();
+
                 }
             }
 
@@ -46,16 +48,24 @@ namespace SignalRChat
                 Response.Redirect("Login.aspx");
             }
             if (!fAvatar.HasFile) return;
+
+            String strFileBase64 = Convert.ToBase64String(fAvatar.FileBytes);
+            
+            string FileName = ImageFunc.EditAvatar(user.Username + fAvatar.FileName, user.Username + fAvatar.FileName, "image", strFileBase64);
+
             bool IsSuccess = false;
             string msg = "";
-            (IsSuccess,msg) = UserFunc.UpdateAvatar(user.Id, fAvatar.FileBytes);
+            (IsSuccess,msg) = UserFunc.UpdateAvatar(user.Id, Encoding.UTF8.GetBytes(FileName));
+
             if (IsSuccess)
             {
-                user.Photo = fAvatar.FileBytes;
-                String strFileBase64 = Convert.ToBase64String(user.Photo);
+                user.Photo = Encoding.UTF8.GetBytes(FileName);
+                
                 Session[AppConst.SessionCurrentUserKey] = user;
-                changingAvatar.ImageUrl = "data:image/png;base64," + strFileBase64;
-                currentUserAvatar.ImageUrl = "data:image/png;base64," + strFileBase64;
+                changingAvatar.ImageUrl = "./Uploads/Avatar/" + FileName;
+                changingAvatar.DataBind();
+                currentUserAvatar.ImageUrl = "./Uploads/Avatar/" + FileName;
+                currentUserAvatar.DataBind();
             }
             // Reload image on nav bar
         }

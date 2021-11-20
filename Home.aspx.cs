@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -86,7 +87,8 @@ namespace SignalRChat
             var bytes = ((UserViewDto)DataItem).Photo;
             if(bytes.Length > 0)
             {
-                return "data:image/png;base64," + Convert.ToBase64String(bytes);
+                String FileName = Encoding.UTF8.GetString(bytes);
+                return "./Uploads/Avatar/" + FileName;
             }
             else
             {

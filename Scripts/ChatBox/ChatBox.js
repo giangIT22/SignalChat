@@ -33,7 +33,13 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 			//console.log(fileType.indexOf('image'));
 			if(fileType.indexOf('image') != -1 ){
 				// hinh anh
-				let linkSrc = "data:" + fileType + ";base64," + fileContent;
+				
+				//load base 64 str				
+				// let linkSrc = "data:" + fileType + ";base64," + fileContent;
+
+				//load path
+				let linkSrc = ".//Uploads//MessageImage//" + fileName;
+
 				fileBlock = "<img class='message-img' src=\"" + linkSrc+"\" onclick=\"DownLoadAttachment(\'" +linkSrc+ "\')\">"
 				//console.log("fileBlock: ",fileBlock);
 			}else{
@@ -407,6 +413,8 @@ $('#inputFile').change(function () {
 		var binaryString = '';
 		let bytes = new Uint8Array(reader.result);
 		var len = bytes.byteLength;
+		
+		console.log("bytes: ", bytes);
 
 		for (var i = 0; i < len; i++) {
 			binaryString += String.fromCharCode(bytes[i]);
@@ -419,6 +427,10 @@ $('#inputFile').change(function () {
 			content: btoa(binaryString),
 			type: input_file.type,
 		}
+
+		console.log("bytes len: ", bytes.byteLength);
+		console.log("binaryString len: ", binaryString.length);
+		console.log("file ", gbl_file_variable);
 		//console.log("gbl_file_variable : ",gbl_file_variable)
 		//console.log("clientSize: ",gbl_file_variable.content.length);
 

@@ -123,6 +123,8 @@ namespace SignalRChat.Models.Data
         public static (bool,string) UpdateAvatar(int UserId, byte[] fileBytes)
         {
             string cmd = "exec UpdateAvatar @Id , @Photo";
+
+
             int res = Conn.ExecuteScalar(cmd, new object[] { UserId, fileBytes });
             if (res == 1)
             {

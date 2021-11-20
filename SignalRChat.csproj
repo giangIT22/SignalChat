@@ -219,6 +219,7 @@
     <Compile Include="Models\Conn.cs" />
     <Compile Include="Models\Data\AppConst.cs" />
     <Compile Include="Models\Data\Group.cs" />
+    <Compile Include="Models\Data\ImageFunc.cs" />
     <Compile Include="Models\Data\User_Group.cs" />
     <Compile Include="Models\Data\Message.cs" />
     <Compile Include="Models\Data\User.cs" />
@@ -246,7 +247,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
     <Folder Include="Models\default_data\" />
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\Avatar\" />
+    <Folder Include="Uploads\MessageImage\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
