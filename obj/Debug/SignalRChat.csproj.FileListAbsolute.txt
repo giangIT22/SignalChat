@@ -1,0 +1,67 @@
+D:\Web Nc\BTL\SignalRChat\bin\SignalRChat.dll.config
+D:\Web Nc\BTL\SignalRChat\bin\SignalRChat.dll
+D:\Web Nc\BTL\SignalRChat\bin\SignalRChat.pdb
+D:\Web Nc\BTL\SignalRChat\bin\AjaxControlToolkit.dll
+D:\Web Nc\BTL\SignalRChat\bin\BCrypt.Net-Next.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.Owin.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.Owin.Security.dll
+D:\Web Nc\BTL\SignalRChat\bin\Newtonsoft.Json.dll
+D:\Web Nc\BTL\SignalRChat\bin\Owin.dll
+D:\Web Nc\BTL\SignalRChat\bin\System.Buffers.dll
+D:\Web Nc\BTL\SignalRChat\bin\System.Memory.dll
+D:\Web Nc\BTL\SignalRChat\bin\System.Numerics.Vectors.dll
+D:\Web Nc\BTL\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Web Nc\BTL\SignalRChat\bin\System.ValueTuple.dll
+D:\Web Nc\BTL\SignalRChat\bin\BCrypt.Net-Next.xml
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Web Nc\BTL\SignalRChat\bin\Microsoft.Owin.Security.xml
+D:\Web Nc\BTL\SignalRChat\bin\System.Buffers.xml
+D:\Web Nc\BTL\SignalRChat\bin\System.Memory.xml
+D:\Web Nc\BTL\SignalRChat\bin\System.Numerics.Vectors.xml
+D:\Web Nc\BTL\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\Web Nc\BTL\SignalRChat\bin\System.ValueTuple.xml
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.dll
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.pdb
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
+E:\web\SignalRChat\bin\SignalRChat.dll.config
+E:\web\SignalRChat\bin\SignalRChat.dll
+E:\web\SignalRChat\bin\SignalRChat.pdb
+E:\web\SignalRChat\bin\AjaxControlToolkit.dll
+E:\web\SignalRChat\bin\BCrypt.Net-Next.dll
+E:\web\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\web\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\web\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\web\SignalRChat\bin\Microsoft.Owin.dll
+E:\web\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\web\SignalRChat\bin\Microsoft.Owin.Security.dll
+E:\web\SignalRChat\bin\Newtonsoft.Json.dll
+E:\web\SignalRChat\bin\Owin.dll
+E:\web\SignalRChat\bin\System.Buffers.dll
+E:\web\SignalRChat\bin\System.Memory.dll
+E:\web\SignalRChat\bin\System.Numerics.Vectors.dll
+E:\web\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\web\SignalRChat\bin\System.ValueTuple.dll
+E:\web\SignalRChat\bin\BCrypt.Net-Next.xml
+E:\web\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\web\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\web\SignalRChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\web\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\web\SignalRChat\bin\Microsoft.Owin.Security.xml
+E:\web\SignalRChat\bin\System.Buffers.xml
+E:\web\SignalRChat\bin\System.Memory.xml
+E:\web\SignalRChat\bin\System.Numerics.Vectors.xml
+E:\web\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\web\SignalRChat\bin\System.ValueTuple.xml
+E:\web\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
+E:\web\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+E:\web\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
+E:\web\SignalRChat\obj\Debug\SignalRChat.dll
+E:\web\SignalRChat\obj\Debug\SignalRChat.pdb

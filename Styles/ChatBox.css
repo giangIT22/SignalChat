@@ -1,0 +1,168 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+label{
+    margin-bottom:0 !important;
+}
+#page-container{
+    display:block !important;
+}
+
+#chat-container {
+    box-shadow: 0 20px 90px rgba(58, 46, 68, 0.1);
+    border: 0.5px solid gainsboro;
+    border-radius: 10px;
+    width: 850px;
+    display: flex;
+    margin: 20px auto 0;
+    height: 520px;
+    
+}
+
+#chat-box {
+    background: #fff;
+    width: 75%;
+    padding: 15px 20px;
+}
+
+    #chat-box #message-box {
+        width: 100%;
+        height: 80%;
+        overflow-y: auto;
+    }
+
+    #chat-box #function-bar {
+        width: 100%;
+        height: 20%;
+        display:inline-block;
+        
+    }
+
+        #chat-box #function-bar #ChatTextArea {
+            width:100%;
+        }
+
+        #chat-box #function-bar #inputFileLbl {
+            background: #74b9ff;
+            font-size: 14px;
+            padding: 6px 15px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 8px;
+            float: right;
+        }
+        #chat-box #function-bar #inputFile {
+           display: none;
+        }
+
+        #chat-box #function-bar #btnSend {
+            background: #74b9ff;
+            font-size: 14px;
+            padding: 6px 15px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 8px;
+            border:none;
+            float:right;
+            margin:0 10px;
+        }
+
+#message-box .message-row{
+	display: flex;
+	flex-direction:row;
+	width: 100%;
+    max-height:300px;
+}
+#message-box .ms-self{
+	justify-content: flex-end;
+}
+
+#message-box .message-row .message-container {
+    width: 42%;
+    max-height:300px;
+    display: flex;
+    flex-direction: row;
+    /*border: 2px solid red;*/
+}
+	#message-box .message-container .info-col{
+		display: flex;
+		flex-direction: column;
+		width: 50px;
+		max-height: 300px;
+        margin-right: 5px;
+	}
+	#message-box .message-container .info-col .sender-avatar img{
+		max-width: 30px;
+		height: 30px;
+        border-radius:50%;
+	}
+
+
+    #message-box .message-content {
+        width: 100%;
+        background-color: #74b9ff;
+        border-radius: 10px;
+        color: white;
+        margin-bottom: 10px;
+        min-height: 40px;
+        padding: 6px 10px;
+    }
+
+    #message-box .message-container .message-content {
+        overflow:hidden;
+    }
+
+#message-box .message-container .msg-attachment {
+    width: 100%;
+    background-color: #74b9ff;
+    height: 200px;
+    max-width: 100%;
+    /*border: 2px solid green;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius:10px;
+}
+
+#message-box .message-container .msg-attachment .message-img{
+    max-width:100%; 
+    max-height:100%;
+    display: block;
+}
+
+
+
+
+
+
+
+#contact_list {
+    overflow-y: auto !important;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+    #contact_list div[class^="contact-box"] {
+        width: 100%;
+        padding: 20px 20px;
+        color: #000;
+        font-size: 18px;
+        background: #fff;
+        box-shadow: 0 20px 90px rgba(58, 46, 68, 0.1);
+    }
+
+        #contact_list div[class^="contact-box"]:hover {
+            cursor: pointer;
+            background-color: #dfe6e9;
+        }
+
+    #contact_list .contact-box-selected {
+        background-color: #74b9ff !important;
+        width: 100%;
+        color:#fff !important;
+    }

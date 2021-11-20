@@ -1,0 +1,104 @@
+
+Problems :
+	
+	List group memeber
+	Nên reset l
+
+Rem task :
+	giao diện
+	hiện notification
+	
+
+======================
+
+
+- Xử lí khi hết session, mà 
+
+- Xử lí gửi file, ảnh file mặc định !, giới hạn độ lớn của file.
+
+- How long the connection will end ?,  does it last forever, why it disconnect ? session  or signalR mecanism
+	
+	[00:52:07 GMT+0700 (Giờ Đông Dương)] SignalR: Triggering client hub event 'showContactsList' on hub 'PrivateChatHub'.
+		-- 10 minutes
+	[01:02:12 GMT+0700 (Giờ Đông Dương)] SignalR: The client has been inactive since Thu Nov 04 2021 01:01:12 GMT+0700 (Giờ Đông Dương) and it has exceeded the inactivity timeout of 50000 ms. Stopping the connection.
+	jquery.signalR-2.2.2.min.js:9 [01:02:12 GMT+0700 (Giờ Đông Dương)] SignalR: Stopping connection.
+	jquery.signalR-2.2.2.min.js:9 [01:02:12 GMT+0700 (Giờ Đông Dương)] SignalR: Closing the Websocket.
+	jquery.signalR-2.2.2.min.js:9 [01:02:12 GMT+0700 (Giờ Đông Dương)] SignalR: Stopping the monitoring of the keep alive.
+
+- heart beat, 10p logout ?
+
+Đang sai:
+- Người dùng nhắn đến, nếu đang không bọn box đấy thì chỉ hiện icon thôi !
+
+Thêm :
+	- Lazy load tin nhắn mỗi lần chỉ load 10 tin cuối, kéo lên thì load thêm !
+	- Xem thông tin users
+
+Grouping:
+	
+	Xem thông tin của 1 group
+		Tên, decription, số lượng thành viên, số người online
+
+		Extra khi người đó là đã là thành viên.
+			Danh sách thành viên
+
+Trạng thái giữa user-user:
+	
+	Không có trong bảng User_User :
+		- Hiện nút "Kết bạn".
+
+	Có trong bảng user_user
+		- Đang gửi lời mời kết bạn. (0)
+			-> Hiện nút "Chấp thuận" . // (0->1)
+			-> Hiện nút "Xóa". // Xóa khỏi bảng User_User
+		- Đã kết bạn (1).
+			-> Hủy kết bạn. (Xóa khỏi bảng User_User)
+		- Đã chặn(2)
+			-> Hiện option "Bỏ chặn"(Xóa khỏi bảng User_user).
+
+	Có trong tất cả -> option "Chặn" (X->2).
+Chú ý :
+	Nếu người A chặn người B:
+		thì giao diện người dùng A khi người B tìm kiếm sẽ không có bất kì nút gì để nhấn cả. Vậy ta cần thông tin của Người chặn.
+		hay tổng quát hơn một số hành động khi lưu vào trong bảng User sẽ cần 1 trường nữa gọi là ExecutorId : người thực hiện
+			Vd : Khi giá trị trường trạng thái là 0, 
+
+User_Group:
+	Người chưa tham gia group.
+		-> không có trong bảng
+
+	Người tạo ra group. (0)
+		Thêm thành viên
+		Chặn thành viên
+		Xem danh sách thành viên
+		Later:
+			Đổi tên group
+	
+	Người yêu cầu tham gia group. (1)
+
+	Người đang trong group. (2)
+		Xem danh sách thành viên.
+		Later : Danh sách kèm thông tin người đang online.
+
+
+	Người bị chặn khỏi group. (3)
+
+	Info:
+
+
+
+* Ràng buộc Message : nếu không phải đối tượng cùng bảng User_user / Group_Group thì không nhắn được.
+	-> thử xem nếu không ràng buộc có nhắn được không !
+	
+* Thêm option clear bảng thông tin.
+		Phần dưới bảng thông tin sẽ là nút để thêm mới nhóm
+
+
+
+
+
+
+
+
+
+
