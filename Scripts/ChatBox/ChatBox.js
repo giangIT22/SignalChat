@@ -22,6 +22,7 @@ function GetMessageContent() {
 
 function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, receiverId, isGroup, content, fileName, fileType, fileContent, creationTime) {
 	console.log("AddMessageToBoxChat!!!!! " + fileName + "----" + content);
+	console.log("AddMessageToBoxChat senderAvatar", senderAvatar);
 	console.log("AddMessageToBoxChat creationTime", creationTime);
 	
 		//console.log("fileContent: ", fileContent.length)
