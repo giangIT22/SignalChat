@@ -71,7 +71,7 @@
         // Global JS variable
         let current_user_id = '<%=this.currentUser.Id%>';
         let current_user_name = '<%=this.currentUser.Name%>';
-        let current_user_avatar = '<%=this.strAvatarx64%>';
+        let current_user_avatar = '<%=this.FileNameAvatar%>';
 
         let DEFAULT_FILE_VALUE = {
             name: '',

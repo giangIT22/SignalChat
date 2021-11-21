@@ -3,6 +3,7 @@ using SignalRChat.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -14,7 +15,7 @@ namespace SignalRChat
     {
 
         public User currentUser;
-        public string strAvatarx64 = ""; 
+        public string FileNameAvatar = ""; 
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -30,7 +31,7 @@ namespace SignalRChat
                 
             }
             currentUser = user;
-            strAvatarx64 = Convert.ToBase64String(user.Photo);
+            FileNameAvatar = Encoding.UTF8.GetString(user.Photo);
         }
 
         protected void btnSend_Click(object sender, EventArgs e)

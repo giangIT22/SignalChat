@@ -16,10 +16,11 @@ namespace SignalRChat.Models.Hubs
         private static Dictionary<int, string> dctAvatar = new Dictionary<int, string>();
         // Group
 
-        public void Connect(int UserId, string strUserPhotox64)
+        public void Connect(int UserId, string FileNameAvatar)
         {
             dctConnectionId[UserId] = Context.ConnectionId;
             dctUserId[Context.ConnectionId] = UserId;
+            dctAvatar[UserId] = FileNameAvatar;
 
             var groupsOfUser = User_GroupFunc.GetGroupsOfUser(UserId);
             foreach(var e in groupsOfUser)
@@ -72,10 +73,10 @@ namespace SignalRChat.Models.Hubs
         public void SendPrivateMessage(int senderId, string senderName, int receiverId, string isGroup, string content, string FileName, string FileType, string FileContent)
         {
 
-            string senderPhoto = "";
+            string senderFileNameAvatar = "";
             if (dctAvatar.ContainsKey(senderId))
             {
-                senderPhoto = dctAvatar[senderId];
+                senderFileNameAvatar = dctAvatar[senderId];
             }
 
             string Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
@@ -98,7 +99,7 @@ namespace SignalRChat.Models.Hubs
 
                 if(InsertedId > 0)
                 {
-                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderPhoto , senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
+                    Clients.Group(receiverId.ToString()).showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                 }
             }
             else
@@ -123,7 +124,9 @@ namespace SignalRChat.Models.Hubs
                     {
                         // Người nhận đang online
                         string receiverConnectionId = dctConnectionId[receiverId];
+                        Clients.Client(receiverConnectionId).showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
                     }
+                    Clients.Caller.showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
                 }
             }
         }

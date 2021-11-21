@@ -49,7 +49,7 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 		}
 
 
-	let avatar_img_tag = senderAvatar.trim().length == 0 ? "<img src='.\\Models\\default_data\\default-avatar.png' >"  : "<img src='data: image/png;base64," + senderAvatar + "' >";
+	let avatar_img_tag = senderAvatar.trim().length == 0 ? "<img src='.\\Models\\default_data\\default-avatar.png' >"  : "<img src='.//Uploads//Avatar//" + senderAvatar + "' >";
 
 		let txt = "";
 		//console.log("isgroup: ", isGroup);

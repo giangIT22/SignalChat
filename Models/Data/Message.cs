@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace SignalRChat.Models.Data
@@ -90,7 +91,7 @@ namespace SignalRChat.Models.Data
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
                     Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
-                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Convert.ToBase64String((byte[])row["Photo"]),
+                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Encoding.UTF8.GetString((byte[])row["Photo"]),
                     AttachmentName = row["AttachmentName"].ToString(),
                     AttachmentExtension = row["AttachmentExtension"].ToString(),
                     LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),
@@ -116,7 +117,7 @@ namespace SignalRChat.Models.Data
                     ReceiverId = int.Parse(row["ReceiverId"].ToString()),
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
-                    Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
+                    Attachment = String.IsNullOrEmpty(tmp) ? "" : Encoding.UTF8.GetString((byte[])row["Attachment"]),
                     AttachmentName = row["AttachmentName"].ToString(),
                     AttachmentExtension = row["AttachmentExtension"].ToString(),
                     LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),
@@ -146,7 +147,7 @@ namespace SignalRChat.Models.Data
                     GroupId = int.Parse(row["GroupId"].ToString()),
                     Content = row["Content"].ToString(),
                     Attachment = String.IsNullOrEmpty(tmp) ? "" : Convert.ToBase64String((byte[])row["Attachment"]),
-                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Convert.ToBase64String((byte[])row["Photo"]),
+                    SenderPhoto = String.IsNullOrEmpty(photo) ? "" : Encoding.UTF8.GetString((byte[])row["Photo"]),
                     AttachmentName = row["AttachmentName"].ToString(),
                     AttachmentExtension = row["AttachmentExtension"].ToString(),
                     LastEditTime = DateTime.Parse(row["LastEditTime"].ToString()),

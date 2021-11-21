@@ -1,23 +1,26 @@
-﻿* {
+﻿﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-label{
-    margin-bottom:0 !important;
+
+label {
+    margin-bottom: 0 !important;
 }
-.show-list{
+
+.show-list {
     right: 0 !important;
     top: 10%;
     width: 100% !important;
     background: #fff;
 }
 
-.hide-bar{
+.hide-bar {
     display: none !important;
 }
-#page-container{
-    display:block !important;
+
+#page-container {
+    display: block !important;
 }
 
 #chat-container {
@@ -28,7 +31,6 @@ label{
     display: flex;
     margin: 20px auto 0;
     height: 520px;
-    
 }
 
 #chat-box {
@@ -46,12 +48,11 @@ label{
     #chat-box #function-bar {
         width: 100%;
         height: 20%;
-        display:inline-block;
-        
+        display: inline-block;
     }
 
         #chat-box #function-bar #ChatTextArea {
-            width:100%;
+            width: 100%;
         }
 
         #chat-box #function-bar #inputFileLbl {
@@ -63,8 +64,9 @@ label{
             border-radius: 8px;
             float: right;
         }
+
         #chat-box #function-bar #inputFile {
-           display: none;
+            display: none;
         }
 
         #chat-box #function-bar #btnSend {
@@ -74,56 +76,58 @@ label{
             cursor: pointer;
             text-align: center;
             border-radius: 8px;
-            border:none;
-            float:right;
-            margin:0 10px;
+            border: none;
+            float: right;
+            margin: 0 10px;
         }
 
-#message-box .message-row{
-	display: flex;
-	flex-direction:row;
-	width: 100%;
-    max-height:300px;
+#message-box .message-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height: 300px;
 }
-#message-box .ms-self{
-	justify-content: flex-end;
+
+#message-box .ms-self {
+    justify-content: flex-end;
 }
 
 #message-box .message-row .message-container {
     width: 42%;
-    max-height:300px;
+    max-height: 300px;
     display: flex;
     flex-direction: row;
     /*border: 2px solid red;*/
 }
-	#message-box .message-container .info-col{
-		display: flex;
-		flex-direction: column;
-		border:3px solid pink;
-		width: 50px;
-		max-height: 300px;
-        margin-right: 5px;
-	}
-	#message-box .message-container .info-col .sender-avatar img{
-		max-width: 30px;
-		height: 30px;
-        border-radius:50%;
-	}
 
+#message-box .message-container .info-col {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    max-height: 300px;
+    margin-right: 5px;
+}
 
-    #message-box .message-content {
-        width: 100%;
-        background-color: #74b9ff;
-        border-radius: 10px;
-        color: white;
-        margin-bottom: 10px;
-        min-height: 40px;
-        padding: 6px 10px;
+    #message-box .message-container .info-col .sender-avatar img {
+        max-width: 30px;
+        height: 30px;
+        border-radius: 50%;
     }
 
-    #message-box .message-container .message-content {
-        overflow:hidden;
-    }
+
+#message-box .message-content {
+    width: 100%;
+    background-color: #74b9ff;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 10px;
+    min-height: 40px;
+    padding: 6px 10px;
+}
+
+#message-box .message-container .message-content {
+    overflow: hidden;
+}
 
 #message-box .message-container .msg-attachment {
     width: 100%;
@@ -135,14 +139,14 @@ label{
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
-#message-box .message-container .msg-attachment .message-img{
-    max-width:100%; 
-    max-height:100%;
-    display: block;
-}
+    #message-box .message-container .msg-attachment .message-img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
 
 
 
@@ -175,11 +179,11 @@ label{
     #contact_list .contact-box-selected {
         background-color: #74b9ff !important;
         width: 100%;
-        color:#fff !important;
+        color: #fff !important;
     }
 
-.show-contact{
-    display:none !important;
+.show-contact {
+    display: none !important;
 }
 
 
@@ -198,7 +202,7 @@ label{
         }
 
     .show-contact {
-        display:block !important;
+        display: block !important;
         position: fixed;
         right: 0;
         background: #fff;
@@ -215,6 +219,5 @@ label{
         .show-contact:hover {
             background: #0984e3;
             color: #fff;
-
         }
 }
