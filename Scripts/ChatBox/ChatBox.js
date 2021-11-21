@@ -385,6 +385,8 @@ function SelectContact(UserId,IsGroup) {
 	contactsBoxArr.forEach(e => {
 		if (e.dataset.userid == UserId && e.dataset.isgroup == IsGroup) {
 			e.classList = ['contact-box-selected'];
+			document.querySelector('#contact_list').classList.remove('show-list');
+			document.querySelector('.show-contact').style.display = "block";
 		} else {
 			e.classList = ['contact-box'];
 		}
@@ -413,7 +415,7 @@ $('#inputFile').change(function () {
 		var binaryString = '';
 		let bytes = new Uint8Array(reader.result);
 		var len = bytes.byteLength;
-		
+
 		console.log("bytes: ", bytes);
 
 		for (var i = 0; i < len; i++) {

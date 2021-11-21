@@ -33,7 +33,9 @@
             border-radius: 2px;
         }
         .user-avatar img{
-            max-height:80px;
+            max-height:65px;
+            border-radius: 50%;
+            margin-top: 5px;
         }
     </style>
 </asp:Content>
@@ -71,13 +73,13 @@
                         <asp:PlaceHolder runat="server" Visible="<%#( GetState(Container.DataItem) != 5 )%>">
 
                             <div class="user-box">
-
-                                <div class="user-name">
-                                    <%#Eval("Name")%>
-                                </div>
                                 <div class="user-avatar">
                                     <img src="<%#GetUserAvatar64Str(Container.DataItem)%>" />
                                 </div>
+                                <div class="user-name">
+                                    <%#Eval("Name")%>
+                                </div>
+                                
 
                                 <div class="user-btn">
 

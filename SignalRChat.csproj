@@ -246,9 +246,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
-    <Folder Include="Models\default_data\" />
-    <Folder Include="Uploads\Avatar\" />
-    <Folder Include="Uploads\MessageImage\" />
+    <Folder Include="Models\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

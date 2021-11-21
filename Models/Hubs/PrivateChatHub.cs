@@ -71,7 +71,7 @@ namespace SignalRChat.Models.Hubs
 
         public void SendPrivateMessage(int senderId, string senderName, int receiverId, string isGroup, string content, string FileName, string FileType, string FileContent)
         {
-            
+
             string senderPhoto = "";
             if (dctAvatar.ContainsKey(senderId))
             {
@@ -93,7 +93,6 @@ namespace SignalRChat.Models.Hubs
                     GroupId = receiverId,
                     Content = content,
                     Attachment = FileContent,
-                    AttachmentName = path,
                     AttachmentExtension = FileType
                 });
 
@@ -106,7 +105,7 @@ namespace SignalRChat.Models.Hubs
             {
                 int InsertedId;
                 string msg;
-
+                
                 string path = ImageFunc.SaveMessageImage(FileName, FileType, FileContent);
 
                 (InsertedId,msg) = MessageFunc.Add(new Message
@@ -115,7 +114,6 @@ namespace SignalRChat.Models.Hubs
                     ReceiverId = receiverId,
                     Content = content,
                     Attachment = FileContent,
-                    AttachmentName = path,
                     AttachmentExtension = FileType
                 });
 
@@ -125,9 +123,7 @@ namespace SignalRChat.Models.Hubs
                     {
                         // Người nhận đang online
                         string receiverConnectionId = dctConnectionId[receiverId];
-                        Clients.Client(receiverConnectionId).showMessage(InsertedId,senderId, senderPhoto, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                     }
-                    Clients.Caller.showMessage(InsertedId, senderId, senderPhoto, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                 }
             }
         }

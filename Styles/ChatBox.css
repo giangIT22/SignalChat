@@ -6,6 +6,16 @@
 label{
     margin-bottom:0 !important;
 }
+.show-list{
+    right: 0 !important;
+    top: 10%;
+    width: 100% !important;
+    background: #fff;
+}
+
+.hide-bar{
+    display: none !important;
+}
 #page-container{
     display:block !important;
 }
@@ -18,6 +28,7 @@ label{
     display: flex;
     margin: 20px auto 0;
     height: 520px;
+    
 }
 
 #chat-box {
@@ -91,10 +102,12 @@ label{
 		border:3px solid pink;
 		width: 50px;
 		max-height: 300px;
+        margin-right: 5px;
 	}
 	#message-box .message-container .info-col .sender-avatar img{
-		max-width: 50px;
-		height: 50px;
+		max-width: 30px;
+		height: 30px;
+        border-radius:50%;
 	}
 
 
@@ -164,3 +177,44 @@ label{
         width: 100%;
         color:#fff !important;
     }
+
+.show-contact{
+    display:none !important;
+}
+
+
+@media screen and (max-width:767px) {
+    #chat-container {
+        max-width: 80% !important;
+    }
+
+        #chat-container #chat-box {
+            width: 100%;
+        }
+
+        #chat-container #contact_list {
+            position: fixed;
+            right: -100%;
+        }
+
+    .show-contact {
+        display:block !important;
+        position: fixed;
+        right: 0;
+        background: #fff;
+        font-size: 22px;
+        padding: 0 10px;
+        border-left: 1px solid #0984e3;
+        border-top: 1px solid #0984e3;
+        border-bottom: 1px solid #0984e3;
+        border-radius: 10px 0 0 10px;
+        color: #74b9ff;
+        cursor: pointer;
+    }
+
+        .show-contact:hover {
+            background: #0984e3;
+            color: #fff;
+
+        }
+}
