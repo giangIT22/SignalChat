@@ -94,6 +94,7 @@ namespace SignalRChat.Models.Hubs
                     GroupId = receiverId,
                     Content = content,
                     Attachment = FileContent,
+                    AttachmentName = path,
                     AttachmentExtension = FileType
                 });
 
@@ -109,14 +110,15 @@ namespace SignalRChat.Models.Hubs
                 
                 string path = ImageFunc.SaveMessageImage(FileName, FileType, FileContent);
 
-                (InsertedId,msg) = MessageFunc.Add(new Message
+                (InsertedId, msg) = MessageFunc.Add(new Message
                 {
                     SenderId = senderId,
                     ReceiverId = receiverId,
                     Content = content,
                     Attachment = FileContent,
+                    AttachmentName = path,
                     AttachmentExtension = FileType
-                });
+                }); ;
 
                 if(InsertedId > 0)
                 {
@@ -124,9 +126,9 @@ namespace SignalRChat.Models.Hubs
                     {
                         // Người nhận đang online
                         string receiverConnectionId = dctConnectionId[receiverId];
-                        Clients.Client(receiverConnectionId).showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
+                        Clients.Client(receiverConnectionId).showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                     }
-                    Clients.Caller.showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, FileName, FileType, FileContent, Time);
+                    Clients.Caller.showMessage(InsertedId, senderId, senderFileNameAvatar, senderName, receiverId, isGroup, content, path, FileType, FileContent, Time);
                 }
             }
         }

@@ -349,6 +349,9 @@ $(function () {
 			//console.log("isGroup: ", selectedContact.IsGroup);
 			//console.log("content: ", content);
 			//console.log("isGroup: ", content);
+			
+			if(gbl_file_variable.content.length == 0) gbl_file_variable.content  = "";
+
 			privateChatHub.server.sendPrivateMessage(senderId, senderName, selectedContact.UserId, selectedContact.IsGroup, content, gbl_file_variable.name, gbl_file_variable.type, gbl_file_variable.content);
 			gbl_file_variable = DEFAULT_FILE_VALUE;
         }
