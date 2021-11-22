@@ -27,8 +27,8 @@ D:\Web Nc\BTL\SignalRChat\bin\System.Memory.xml
 D:\Web Nc\BTL\SignalRChat\bin\System.Numerics.Vectors.xml
 D:\Web Nc\BTL\SignalRChat\bin\System.Runtime.CompilerServices.Unsafe.xml
 D:\Web Nc\BTL\SignalRChat\bin\System.ValueTuple.xml
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
 D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
 D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.dll
 D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.pdb
-D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.AssemblyReference.cache
-D:\Web Nc\BTL\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete

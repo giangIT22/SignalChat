@@ -18,6 +18,7 @@ namespace SignalRChat.Models.Data
         public byte[] Photo { get; set; }
         public int State { get; set; }
         public DateTime CreationTime { get; set; }
+
     }
     public class UserToGroup
     {

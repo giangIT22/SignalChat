@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -44,21 +46,89 @@ namespace SignalRChat.Models.Data
         public static (int, string) Add(Message message)
         {
 
-            string cmd = "exec ThemMessage @SenderId , @ReceiverId , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
+            //string cmd = "exec ThemMessage @SenderId , @ReceiverId , @GroupId , @Attachment , @AttachmentName , @AttachmentExtention , @Content ";
 
-            int InsertedId = Conn.ExecuteScalar(cmd, 
-                    new object[] { 
-                        message.SenderId, message.ReceiverId, message.GroupId, System.Convert.FromBase64String(message.Attachment), message.AttachmentName,message.AttachmentExtension, message.Content
+            //int InsertedId = Conn.ExecuteScalar(cmd, 
+            //        new object[] { 
+            //            message.SenderId, message.ReceiverId, message.GroupId, System.Convert.FromBase64String(message.Attachment), message.AttachmentName,message.AttachmentExtension, message.Content
+            //        }
+            //    );
+            //if (InsertedId > 0)
+            //{
+            //    return (InsertedId, "");
+            //}
+            //else
+            //{
+            //    return (-1, "Lỗi không xác định");
+            //}
+            DbConnection conObject = Conn.GetDatabaseConnection();
+            try
+            {
+                conObject.Open();
+                if (conObject.State == ConnectionState.Open)
+                {
+                    //Response.Write("Database Connection is Open");
+
+
+                    using (var cmd = conObject.CreateCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "ThemMessage";
+
+                        cmd.Parameters.Add(new SqlParameter("@SenderId", SqlDbType.Int));
+                        cmd.Parameters["@SenderId"].Value = message.SenderId;
+
+                        cmd.Parameters.Add(new SqlParameter("@GroupId", SqlDbType.Int));
+                        cmd.Parameters["@GroupId"].Value = message.GroupId;
+
+                        cmd.Parameters.Add(new SqlParameter("@ReceiverId", SqlDbType.Int));
+                        cmd.Parameters["@ReceiverId"].Value = message.ReceiverId;
+
+                        cmd.Parameters.Add(new SqlParameter("@Attachment", SqlDbType.VarBinary,-1));
+                        cmd.Parameters["@Attachment"].Value = Convert.FromBase64String(message.Attachment);
+
+                        cmd.Parameters.Add(new SqlParameter("@AttachmentName", SqlDbType.NVarChar, 100));
+                        cmd.Parameters["@AttachmentName"].Value = message.AttachmentName;
+
+                        cmd.Parameters.Add(new SqlParameter("@AttachmentExtention", SqlDbType.VarChar, 30));
+                        cmd.Parameters["@AttachmentExtention"].Value = message.AttachmentExtension;
+
+                        cmd.Parameters.Add(new SqlParameter("@Content", SqlDbType.NVarChar, 500));
+                        cmd.Parameters["@Content"].Value = message.Content;
+
+                       
+
+                        cmd.UpdatedRowSource = UpdateRowSource.OutputParameters;
+
+                        var res = int.Parse(cmd.ExecuteScalar().ToString());
+
+                        string CreateMsg = "";
+                        if (res <= 0)
+                        {
+                            CreateMsg =  "Lỗi không xác định";
+                            return (0, CreateMsg);
+                        }
+
+                        return (res, CreateMsg);
                     }
-                );
-            if (InsertedId > 0)
-            {
-                return (InsertedId, "");
+
+                }
+
             }
-            else
+            catch (SqlException sqlexception)
             {
-                return (-1, "Lỗi không xác định");
+                return (-1, "Lỗi sql !");
             }
+            catch (Exception ex)
+            {
+                return (-1, "Lỗi không xác định !");
+            }
+            finally
+            {
+                conObject.Close();
+            }
+            return (-1, "Lỗi Không xác định !");
+
         }
         public static List<Message> GetConversation(int userAId, int userBId)
         {

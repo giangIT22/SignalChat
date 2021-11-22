@@ -15,13 +15,13 @@ CREATE TABLE tblUser(
 )
 go
 
-CREATE TABLE tblMessage(
+ create tABLE tblMessage(
  Id int IDENTITY(1,1) PRIMARY KEY,
  SenderId int not null,
  GroupId int,
  ReceiverId int,
  Attachment Varbinary(max),  -- lưu được tối đa 2gb
- AttachmentName varchar(100),
+ AttachmentName nvarchar(100),
  AttachmentExtension varchar(30),
  Content nvarchar(500),
  LastEditTime datetime,
@@ -142,7 +142,7 @@ create PROCEDURE ThemMessage
 --	Id > '0' : thêm thành công
 --
 	@SenderId int, @ReceiverId int, @GroupId int, 
-	@Attachment varbinary(max) null, @AttachmentName varchar(100), @AttachmentExtention varchar(30),
+	@Attachment varbinary(max) null, @AttachmentName nvarchar(100), @AttachmentExtention varchar(30),
 	@Content nvarchar(500) null
 AS
 	begin
