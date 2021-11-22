@@ -40,7 +40,7 @@ function addMessageToBoxChat(MessageId, senderId, senderAvatar, senderName, rece
 				//load path
 				let linkSrc = ".//Uploads//MessageImage//" + fileName;
 
-				fileBlock = "<img class='message-img' src=\"" + linkSrc+"\" onclick=\"DownLoadAttachment(\'" +linkSrc+ "\')\">"
+				fileBlock = "<img class='message-img' src=\"" + linkSrc+"\" onclick=\"DownLoadAttachment(\'" +linkSrc+ "\',\'"+fileName+"\')\">"
 				//console.log("fileBlock: ",fileBlock);
 			}else{
 			   // other file
@@ -332,9 +332,10 @@ $(function () {
 		)
     }
 
-	privateChatHub.client.OnDisconnected = function () {
+	privateChatHub.client.reloadPage = function () {
 		location.reload();
     }
+
 	$('#btnSend').click(function () {
 		//console.log("send message", gbl_file_variable);
 		let senderId = current_user_id;
@@ -400,11 +401,11 @@ function SelectContact(UserId,IsGroup) {
 }
 
 
-function DownLoadAttachment(linkSrc) {
+function DownLoadAttachment(linkSrc,tenFile) {
 	//console.log("DownLoadAttachment:", linkSrc);
 	const downloadLink = document.createElement("a");
 	downloadLink.href = linkSrc;
-	downloadLink.download = "downloadfile";
+	downloadLink.download = tenFile;
 	downloadLink.click();
 }
 

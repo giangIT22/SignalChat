@@ -178,9 +178,9 @@ namespace SignalRChat.Models.Hubs
                 {
                     Groups.Remove(UserId.ToString(), e.GroupId.ToString());
                 }
-            }
+           }
 
-            Clients.Caller.OnDisconnected();
+            Clients.Caller.reloadPage();
 
             // begin: for testing
             int DisconnectingUserId;
